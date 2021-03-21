@@ -124,3 +124,13 @@ const forOf = (data,search) => {
 
 const forOfResult = forOf(recipes,search);
 console.log(forOfResult);
+
+
+
+
+
+let idGlobal = Object.assign({},resultIng,resultName, resultApp, resultDesc, resultUst);
+console.log(idGlobal);
+
+let merged = {...resultIng,...resultName,...resultApp,...resultDesc,...resultUst}
+console.log(merged);

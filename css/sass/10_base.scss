@@ -7,3 +7,32 @@ body{
     min-width : 100%;
     min-height: 100%;
 }
+
+
+//Utilitaire injecté via JS enfin peut être check au refactoring ! #RefactControl
+.textTransparent::placeholder{
+    opacity: 0.5;
+}
+
+.color--ingredients{
+    background-color: $thisblue;
+}
+
+.color--appliance{
+    background-color: $thisGreen;
+}
+
+.color--ustensils{
+    background-color: $thisRed;
+}
+
+.elHidden{
+    display: none;
+}
+
+.elShow{
+    display : block;
+}
+
+
+ 

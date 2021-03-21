@@ -1,126 +1,84 @@
+class SearchData {
+
+  getSuggestion(target) {
+    let result = [];
+    let tmp = [];
+
+    const search = target.value;
+    const context = target.dataset.context;
+    const fields = target.dataset.fields;
+    const depth = target.dataset.depth;
+
+    const targetLabel = document.querySelector(`#inputTrigger--${context}`);
+
+    switch (depth) {
+
+      case "lowerLevel": tmp = getData.specificDataLowerLevel(search, fields, context);  break;
+      case "root":       tmp = getData.specificDataRoot(search, fields);  break;
+
+    }
+
+    tmp.forEach((el) => {
+      if (!result.includes(el.value)) { result.push(el.value); }
+    });
+
+    const allList = document.querySelectorAll(".inputList");
+
+    if (allList.length > 0) {
+        document.querySelector(".inputList").remove()
+        resetOtherInput(targetLabel)
+    }
+
+    if(targetLabel.getAttribute("data-status") === 'openList' && result.length>0){
+        targetLabel.setAttribute("data-status", "openSuggestion");
+    }
+  
+    const thisListing = makeComponent(new listing(result, context));
+    renderComponent(thisListing, targetLabel);
+    targetLabel.setAttribute("data-status", "openSuggestion");
+
+  }
+
+  getTag(target){
+
+    const label = target.closest(".inputTrigger");
+    const input = label.firstElementChild
+    
+    
+    const search  = target.textContent;
+    const context = input.dataset.context
+    const fields  = input.dataset.fields
+    const depth   = input.dataset.depth
+    const multiSearch = []
 
 
 
-const data = 'Crème';
-const search = normalizeString(data)
+    switch(depth){
+        case 'lowerLevel' 
 
-// Culture G , injection de variable dans une regex
-// {const regex = new RegExp(`ReGeX${testVar}ReGeX`);} le flag passe en second paramètres
-const regex = new RegExp(`${ normalizeString(data)}`,'g');
+        //On list les tag Existants
 
-/**/
+        //On push
 
-const searchIngredients  = (data,search) =>{
-    let searchResult = [];
+        //On boucle sur multiSearch et obtient les ID
+        //On obtient les recettes
+        //On affiche les recettes
+        //On affiche le tag
+        
+        
+        
+        : break
+        case 'root'
+        
+        
+        : break
+    }
+        
 
-    let i = 0;
-    data.forEach((recipe,key) => {
-      recipe.ingredients.forEach((ing) => {
-            if(normalizeString(ing.ingredient).includes(search)){
-                searchResult[i++] = {idRecipe : key, ing: ing.ingredient} ;
-            }
-       })        
-    })
 
-  return searchResult;
+  }
+
+
+
+
 }
-const searchIngredientsResult= searchIngredients(recipes,search)
-
-console.log(searchIngredientsResult)
-
-/**/
-
-const searchUstensils  = (data,search) =>{
-    let searchResult = [];
-
-    let i = 0;
-    data.forEach((recipe,key) => {
-        recipe.ustensils.forEach((ust) => {
-
-            if(normalizeString(ust).includes(search)){                
-                searchResult[i++] = {idRecipe : key, ust: ust } ;
-            }
-        })           
-    })
-
-  return searchResult
-}
-const searchUstensilsResult= searchUstensils(recipes,search)
-
-console.log(searchUstensilsResult)
-
-
-/**/
-
-const searchName  = (data,search) =>{
-    let searchResult = [];
-
-    let i = 0;
-    data.forEach((recipe,key) => {
-
-        if(normalizeString(recipe.name).includes(search.toLowerCase())){
-            searchResult[i++] = {idRecipe : key, name: recipe.name} ;
-        }
-           
-    })
-
-  return searchResult
-}
-const searchNameResult= searchName(recipes,search)
-
-console.log(searchNameResult)
-
-/**/
-
-const searchDescription  = (data,search) =>{
-    let searchResult = [];
-
-    let i = 0;
-    data.forEach((recipe,key) => {
-
-        if(normalizeString(recipe.description).includes(search)){
-            searchResult[i++] = {idRecipe : key, desc: recipe.description} ;
-        }           
-    })
-
-  return searchResult
-}
-const searchDescResult= searchDescription(recipes,search)
-
-console.log(searchDescResult)
-
-/**/
-
-const searchAppliance  = (data,search) =>{
-    let searchResult = [];
-
-    let i = 0;
-    data.forEach((recipe,key) => {
-
-        if(normalizeString(recipe.appliance).includes(search)){
-            searchResult[i++] = {idRecipe : key, app: recipe.appliance} ;
-        }           
-    })
-
-  return searchResult
-}
-const searchAppResult= searchAppliance(recipes,search)
-
-console.log(searchAppResult)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
