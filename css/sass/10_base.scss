@@ -1,38 +1,34 @@
-body{
-    font-size: 16px;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    width : 100%;
-    min-width : 100%;
-    min-height: 100%;
+body {
+  font-size: 16px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 100%;
+  min-width: 100%;
+  min-height: 100%;
 }
-
 
 //Utilitaire injecté via JS enfin peut être check au refactoring ! #RefactControl
-.textTransparent::placeholder{
-    opacity: 0.5;
+.textTransparent::placeholder {
+  opacity: 0.5;
 }
 
-.color--ingredients{
-    background-color: $thisblue;
+.color--ingredients {
+  background-color: $thisblue;
 }
 
-.color--appliance{
-    background-color: $thisGreen;
+.color--appliance {
+  background-color: $thisGreen;
 }
 
-.color--ustensils{
-    background-color: $thisRed;
+.color--ustensils {
+  background-color: $thisRed;
 }
 
-.elHidden{
-    display: none;
+.elHidden {
+  display: none;
 }
 
-.elShow{
-    display : block;
+.elShow {
+  display: block;
 }
-
-
- 

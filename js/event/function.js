@@ -18,7 +18,6 @@ const openListing = target => {
 
     closeListing(targetLabel)
 
-    console.log(depth);
 
 
         switch(depth){
@@ -29,7 +28,7 @@ const openListing = target => {
                     thisListing = makeComponent(
                       new listing(
                         getData.allDataLowerLevel(context, fields),
-                        context
+                        context,fields,depth
                       )
                     );
                     renderComponent(thisListing,targetLabel)
@@ -46,7 +45,7 @@ const openListing = target => {
 
 
                     thisListing = makeComponent(
-                      new listing(getData.allDataRoot(context), context)
+                      new listing(getData.allDataRoot(context), context,fields,depth)
                     );
                 renderComponent(thisListing,targetLabel)
                 targetinput.setAttribute('placeholder','Rechercher un ingredient')
@@ -122,6 +121,6 @@ const resetOtherInput = (exclude)=>{
 
 window.addEventListener('click', (e) => { 
   
-    resetInput();
+    resetAllInput();
 
 });

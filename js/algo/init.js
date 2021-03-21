@@ -18,7 +18,6 @@ const makeComponent = (callback) => {
 function renderComponent(injectThis,target){
 
     if(!injectThis.length){
-        console.error('yolo');
             target.insertAdjacentHTML("beforeend",injectThis.elHTML)
     }else{
         injectThis.map(function(injectThis){
@@ -41,7 +40,7 @@ class init{
     //On passe le JSON dans l'atelier pour obtenir le Bloc HTML 
     //qui affiche toutes les recettes
 
-    const recipesComponent = makeComponent(new recipe(recipes))
+    const recipesComponent = makeComponent(new createRecipe(recipes))
     const targetRenderRecipes =  document.querySelector('.mainWrapper')
     renderComponent(recipesComponent,targetRenderRecipes)
 
@@ -63,6 +62,5 @@ const dataIng = getData.allDataLowerLevel('ingredients','ingredient');
 const dataUst = getData.allDataLowerLevel('ustensils','ustensils'); 
 const dataApp = getData.allDataRoot('appliance'); 
 
-console.error(dataUst);
 
 

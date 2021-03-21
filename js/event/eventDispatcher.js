@@ -6,7 +6,7 @@ class EventsDispatcher {
   }
 
   eventClick(e) {
-    console.log(e);
+   // console.log(e);
 
     if (e.target.dataset.js) {
 
@@ -45,7 +45,7 @@ class EventsDispatcher {
       const action = el.dataset.js;
       const status = el.parentNode.dataset.status;
 
-      console.log(el);
+     // console.log(el);
 
       e.preventDefault();   e.stopPropagation();
       switch (action) {
@@ -63,10 +63,7 @@ class EventsDispatcher {
 
                 if (document.querySelectorAll(".inputList").length > 0) {
                     document.querySelector(".inputList").remove();
-                    target.setAttribute(
-                        "placeholder",
-                        ""
-                        );
+                    target.setAttribute( "placeholder", "");
                 }
 
                 resetAllInput();

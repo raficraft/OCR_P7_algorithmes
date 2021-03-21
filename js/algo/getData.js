@@ -70,10 +70,9 @@ class GetData{
 
         let result = []
         data.forEach((el)=>{           
-            result.push(this.JSON.find(recipes => recipes.id === el.idRecipe))
+            result.push(this.JSON.find(recipes => recipes.id === el))
         })
 
         return result
     }
-   
 }

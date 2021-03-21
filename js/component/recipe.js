@@ -1,4 +1,4 @@
- class recipe{
+ class createRecipe{
 
 
     constructor(thisData){
