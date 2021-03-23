@@ -94,12 +94,22 @@ const setAttributes = (el, options) => {
     bodyElt.style.overflow = "hidden"
 }
 
-
+/**
+ * Restore la barre de scroll
+ */
 
 const restoreScrollBar = () => {
 	let bodyElt = document.body
         bodyElt.style.overflow = "scroll";
 }
+
+/**
+ * 
+ * @param {HTMLElement} element 
+ * @param {string} attributes 
+ * @param {string} oldAttr 
+ * @param {string} newAttr 
+ */
 
 const toggleAttribute = (element,attributes,oldAttr,newAttr) =>{
 

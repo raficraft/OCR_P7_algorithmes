@@ -1,4 +1,4 @@
-const recipes = [
+const dataJSON = [
     {
         "id": 1,
         "name" : "Limonade de Coco",

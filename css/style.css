@@ -122,6 +122,10 @@ body {
   background-color: #ED6454;
 }
 
+.color--name {
+  background-color: #f7be22;
+}
+
 .elHidden {
   display: none;
 }

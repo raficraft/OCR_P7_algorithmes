@@ -13,8 +13,12 @@ class EventsDispatcher {
       const el = e.target;
       const target = e.target;
       const action = el.dataset.js;
+      
+      console.error(action);
+      console.error(target);
 
       e.preventDefault();   e.stopPropagation();
+
 
       switch (action) {
 
@@ -28,7 +32,7 @@ class EventsDispatcher {
           closeListing();
         break;
         case "getTag":
-            searchSpecific.getTag(target);
+            searchSpecific.getTagData(target);
         break;
        
 

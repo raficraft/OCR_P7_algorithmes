@@ -1,66 +1,44 @@
 const delParent = target => target.parentNode.remove();
 
+const openListing = target => {
 
-const openListing = target => {   
+  // target is fontAwesome Icon
+  const targetParent = target.parentNode; //label.inputTrigger
+  const targetInput = target.previousElementSibling; //input
+  //Data attributes fusionnée entre ceux présent dans l'Input et l'icone cliqué
+  const options = targetInput.dataset;
+  const targetLabel = document.querySelector(`#inputTrigger--${options.context}`);
+  let thisListing = [];
 
-    // target fontAwesome Icon
-    const targetParent  = target.parentNode //label.inputTrigger
-    const targetinput = target.previousElementSibling //input 
+  console.log(options);
 
-    const depth         = targetinput.dataset.depth;    
-    const context       = targetinput.dataset.context;
-    const fields        = targetinput.dataset.fields;
-    const targetLabel  = document.querySelector(`#inputTrigger--${context}`)
-    let thisListing = []
+  // On Récupère tout le label (Un seul ouvert à la fois) possédant la classe open et on ferme
+  //Conditionné si un listing est ouvert
+  closeListing(targetLabel);
 
+  switch (options.depth) {
 
-    // On Pécupère tout le label (Un seul ouvert à la fois) possédant la classe open et on ferme
+    case "lowerLevel":
+      //A découper injectListing
+      thisListing = makeComponent( new listing( getData.allDataLowerLevel(options), options));
+      renderComponent(thisListing, targetLabel);
+      new EventsDispatcher('[data-js="getTag"]');
+      //
+      targetInput.setAttribute("placeholder", `Rechercher un ${options.context}`);
+      targetParent.setAttribute("data-status", "openList");
 
-    closeListing(targetLabel)
+      break;
 
+    case "root":
+      thisListing = makeComponent( new listing(getData.allDataRoot(options), options));
+      renderComponent(thisListing, targetLabel);
+      new EventsDispatcher('[data-js="getTag"]');
+      targetInput.setAttribute("placeholder", `Rechercher un ${options.context}`);
+      targetParent.setAttribute("data-status", "openList");
 
-
-        switch(depth){
-
-            case 'lowerLevel':
-
-                //A découper injectListing
-                    thisListing = makeComponent(
-                      new listing(
-                        getData.allDataLowerLevel(context, fields),
-                        context,fields,depth
-                      )
-                    );
-                    renderComponent(thisListing,targetLabel)
-                    new EventsDispatcher('[data-js="getTag"]');
-                //
-
-                targetinput.setAttribute('placeholder','Rechercher un ingredient')               
-                targetParent.setAttribute('data-status','openList')
-
-
-            break;
-
-            case 'root':
-
-
-                    thisListing = makeComponent(
-                      new listing(getData.allDataRoot(context), context,fields,depth)
-                    );
-                renderComponent(thisListing,targetLabel)
-                targetinput.setAttribute('placeholder','Rechercher un ingredient')
-                targetParent.setAttribute('data-status','openList')
-
-            break;
-
-       
-        }
-
-
+      break;
+  }
 }
-
-
-
 
 const closeListing = (exclude) => {
 
@@ -78,14 +56,14 @@ const closeListing = (exclude) => {
             elRemove.remove()
         }
 
-        const childOfOpen = thisOpen.firstChild.nextSibling //#text->input  Write function getFirstChild ???
-        const placeHolder = childOfOpen.dataset.placeholder
-        childOfOpen.setAttribute('placeHolder',placeHolder)      
+        const childOfOpen = thisOpen.firstElementChild //#text->input 
+        const options = childOfOpen.dataset //#text->input 
+        childOfOpen.setAttribute('placeHolder',options.placeHolder)      
         thisOpen.setAttribute('data-status','close')
+
     }
 
 }
-
 
 const resetAllInput = ()=>{
       const allList = document.querySelectorAll(".inputTrigger");
@@ -116,9 +94,27 @@ const resetOtherInput = (exclude)=>{
 }
 
 
+const getResultToRootAndLowerLevel = (options) => {
+
+  result = []
+     switch (options.depth) {
+        case "lowerLevel":
+          result = getData.specificDataLowerLevel(options);
+          break;
+        case "root":
+          result = getData.specificDataRoot(options);
+          break;
+      }
+  return result;
+
+}
+
+
+const showErroMessage = (message) =>{
+
+}
+
 //Reset de toutes les listes au click dans le dom
-
-
 window.addEventListener('click', (e) => { 
   
     resetAllInput();

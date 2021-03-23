@@ -12,7 +12,7 @@ const regex = new RegExp(`${search}`);
 console.error(regex);
 
 
-const getThisIngredientsSearch = (recipes,search) => {
+const getThisIngredientsSearch = (dataJSON,search) => {
 
 
     let getThisIngredient = {}

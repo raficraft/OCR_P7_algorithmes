@@ -7,8 +7,9 @@
     
     <!-- rule css font-family: 'DM Sans', sans-serif;  -->
     
-    <script type="text/javascript" src="js/data/recipes.js" defer></script>
+    <script type="text/javascript" src="js/data/dataJSON.js" defer></script>
     <script type="text/javascript" src="js/tools/tools.js" defer></script>
+
     <script type="text/javascript" src="js/component/recipe.js" defer></script>
     <script type="text/javascript" src="js/component/listing.js" defer></script>
 
@@ -16,10 +17,10 @@
     <script type="text/javascript" src="js/event/eventDispatcher.js" defer></script>
     
     
-    <script type="text/javascript" src="js/algo/getData.js" defer></script>
-    <script type="text/javascript" src="js/algo/searchData.js" defer></script>
+    <script type="text/javascript" src="js/algo/10_getData.js" defer></script>
+    <script type="text/javascript" src="js/algo/20_searchData.js" defer></script>
 
-    <script type="text/javascript" src="js/algo/init.js" defer></script>
+    <script type="text/javascript" src="js/algo/00_init.js" defer></script>
     
     
     <link rel="preconnect" href="https://fonts.gstatic.com">        
@@ -47,6 +48,7 @@
      
   
         <div id="filterResult" class="filterResult">
+          <!--
           <P class="filterTag filterTag--blue color--ingredients" 
           data-tag data-context="ingredients" data-fields="ingredient" data-depth="lowerLevel" data-value="coco">
           coco
@@ -63,7 +65,7 @@
           data-tag data-context="ustensils" data-fields="ustensils" data-depth="lowerLevel" data-value="verres">
             verres
           <i class="far fa-times-circle" data-js="delParent" ></i></p>
-
+          -->
         </div>
   
  
@@ -71,22 +73,30 @@
 
           <!-- Input ingredient-->  
 
+          <!--
+            <label id="inputTrigger--name" class="inputTrigger" data-status="close">
+                <input type="text" placeholder="name" class="color--name" data-js="search" data-context="name" 
+                       data-placeholder="name" data-fields="name" data-depth="root">
+                <i class="fas fa-chevron-down" data-js="openListing" data-context="name"></i>
+                <i class="fas fa-chevron-up elHidden" data-js="closeListing" data-context="name"></i>                             
+            </label>
+          -->
+
           
             <label id="inputTrigger--ingredients" class="inputTrigger" data-status="close">
-                <input type="text" placeholder="Ingredients" class="color--ingredients" data-js="search" data-context="ingredients" 
-                       data-placeholder="Ingredients" data-fields="ingredient" data-depth="lowerLevel">
+                <input type="text" placeholder="Ingredients" class="color--ingredients" data-placeholder="Ingredients"
+                data-js="search" data-context="ingredients" data-fields="ingredient" data-depth="lowerLevel">
                 <i class="fas fa-chevron-down" data-js="openListing" data-context="ingredients"></i>
                 <i class="fas fa-chevron-up elHidden" data-js="closeListing" data-context="ingredients"></i>                             
             </label>
-          
        
           
           <!-- Input appareil-->  
 
          
             <label id="inputTrigger--appliance" class="inputTrigger" data-status="close">
-                <input type="text" placeholder="Appareil" class="color--appliance"   data-js="search" data-context="appliance" 
-                       data-placeholder="Appareil" data-fields="appliance" data-depth="root">
+                <input type="text" placeholder="Appareil" class="color--appliance" data-placeholder="Appareil"
+                 data-js="search" data-context="appliance"  data-fields="appliance" data-depth="root">
                 <i class="fas fa-chevron-down" data-js="openListing" data-context="appliance"></i>
                 <i class="fas fa-chevron-up elHidden" data-js="closeListing" data-context="appliance"></i>                 
             </label>
@@ -95,8 +105,8 @@
              <!-- Input ustensiles-->
             
             <label id="inputTrigger--ustensils" class="inputTrigger" data-status="close">
-                <input type="search" placeholder="Ustensiles" class="color--ustensils"  data-js="search" data-context="ustensils" 
-                        data-placeholder="Ustensiles" data-fields="ustensils" data-depth="lowerLevel">
+                <input type="search" placeholder="Ustensiles" class="color--ustensils" data-placeholder="Ustensiles"
+                 data-js="search" data-context="ustensils" data-fields="ustensils" data-depth="lowerLevel">
                 <i class="fas fa-chevron-down" data-js="openListing" data-context="ustensils"></i>
                 <i class="fas fa-chevron-up elHidden" data-js="closeListing" data-context="ustensils"></i>              
             </label>  

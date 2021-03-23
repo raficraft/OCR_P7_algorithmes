@@ -3,6 +3,8 @@
 
     constructor(thisData){
 
+        console.log(thisData);
+
         this.elHTML = ''
 
     thisData.forEach(data => {

@@ -1,10 +1,10 @@
 class listing{
 
-    constructor(thisData,context,fields,depth){
+    constructor(thisData,options){
 
 
 
-        this.elHTML = `<ul id="inputList--${context}" class="inputList color--${context}">`
+        this.elHTML = `<ul id="inputList--${options.context}" class="inputList color--${options.context}">`
 
             if(thisData.length > 0){
 
@@ -12,9 +12,9 @@ class listing{
                 //On limite le nombre d'ingrédients afficher
                 if(key <= 29){
                     this.elHTML += `<li data-js="getTag" 
-                    data-context="${context}" 
-                    data-fields=${fields} 
-                    data-depth=${depth}
+                    data-context="${options.context}" 
+                    data-fields=${options.fields} 
+                    data-depth=${options.depth}
                     data-value="${data}"
                     >${data}</li>`;  
                 }        
