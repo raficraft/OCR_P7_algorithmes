@@ -232,6 +232,7 @@ header {
   opacity: 0;
   z-index: 20;
   height: 0;
+  display: none;
 }
 .inputTrigger input {
   display: flex;

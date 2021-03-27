@@ -1,75 +1,91 @@
 class GetData{
 
-
     constructor(){
-        this.JSON = dataJSON; // Si fetch {new getJSON(dataJSON)}     
+        this.JSON = dataJSON; // Si fetch {new getJSON(dataJSON)} 
     }
 
-
-    allDataRoot(options){
-        console.log(options.context);
+    allDataType(options){
 
         let result = []
-        this.JSON.forEach(recipe => {
-            if(!result.includes(recipe[options.fields])){
-                result.push(recipe[options.fields])
-            }           
-        });
-        return result
-    }
+        switch(options.depth){
 
+            case 'root':
 
-    allDataLowerLevel(options){
+                this.JSON.forEach(recipe => {
+                    if(!result.includes(recipe[options.fields])){
+                        result.push(recipe[options.fields])
+                    }           
+                });
 
-        console.log(options.context);
+            break;
 
-        let result = []
-        this.JSON.forEach(recipe => {
-
-            recipe[options.context].forEach(el => {                
-
-                options.context !== options.fields ? el = el[options.fields] : el //Tableau associatif {else} tableau unidimensionelle [ternaire]
-                
-                if(!result.includes(el)){  result.push(el); } 
-            });            
-        });
-        return result
-    }
-
-      
-    specificDataRoot = (options) => {
-        
-        let result = []
-        this.JSON.forEach((recipe) => {  
-            if(normalizeString(recipe[options.fields]).includes(normalizeString(options.search))){
-               result.push({idRecipe : recipe.id, value: recipe[options.fields]}) ;
-            }
-        })  
-        console.error(result);
-        return result;
-    }
-
-    specificDataLowerLevel = (options) => {
-        
-        let result = []
-        this.JSON.forEach(recipe => {
+            case 'lowerLevel':             
             
-            const thisArray = recipe[options.context]          
+            this.JSON.forEach(recipe => {
+    
+                recipe[options.context].forEach(el => {                
+    
+                    options.context !== options.fields ? el = el[options.fields] : el //Tableau associatif {else} tableau unidimensionelle [ternaire]
+                    
+                    if(!result.includes(el)){  result.push(el); } 
+                });            
+            });
 
-            thisArray.filter((el) => {
-
-                if(options.fields !== options.context){ el = el[options.fields]}
-                
-                if(normalizeString(el).includes(normalizeString(options.search))){ 
-                    result.push({idRecipe : recipe.id, value: el}) ;
-                }
-            })             
-        })  
-         console.error(result);
-        return result;
+           break;
+        }
+        return result
     }
 
-    getRecipeByID = (data) => {
+
+    specificData(options){
+        let result = []
+        switch(options.depth){
+
+            case 'root':
+                this.JSON.forEach((recipe) => {  
+                    if(normalizeString(recipe[options.fields]).includes(normalizeString(options.search))){
+                       result.push({
+                         idRecipe: recipe.id,
+                         value: recipe[options.fields],
+                         context: options.context,
+                         fields: options.fields,
+                         depth: options.depth,
+                         search: options.search,
+                       });
+                    }
+                })  
+
+                
+            break;
+
+            case 'lowerLevel': 
+                this.JSON.forEach(recipe => {
+                
+                    const thisArray = recipe[options.context]          
+        
+                    thisArray.filter((el) => {
+        
+                        if(options.fields !== options.context){ el = el[options.fields]}
+                        
+                        if(normalizeString(el).includes(normalizeString(options.search))){ 
+                            result.push({
+                            idRecipe: recipe.id,
+                            value: el,
+                            context: options.context,
+                            fields: options.fields,
+                            depth: options.depth,
+                            search: options.search,
+                            });
+                        }
+                    })             
+                })    
+
+            break;
+        }
+        return result
+    }
+
+    getRecipeByID(data){
 
         let result = []
         data.forEach((el)=>{           
@@ -78,4 +94,6 @@ class GetData{
 
         return result
     }
+
+    
 }

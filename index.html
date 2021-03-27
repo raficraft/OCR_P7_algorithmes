@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <title>Les petits plats</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1" /> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     
     <!-- rule css font-family: 'DM Sans', sans-serif;  -->
     
@@ -12,13 +12,14 @@
 
     <script type="text/javascript" src="js/component/recipe.js" defer></script>
     <script type="text/javascript" src="js/component/listing.js" defer></script>
+    <script type="text/javascript" src="js/component/tags.js" defer></script>
 
     <script type="text/javascript" src="js/event/function.js" defer></script>
-    <script type="text/javascript" src="js/event/eventDispatcher.js" defer></script>
+    <script type="text/javascript" src="js/event/listingEvent.js" defer></script>
+    <script type="text/javascript" src="js/event/tagsEvent.js" defer></script>
     
     
     <script type="text/javascript" src="js/algo/10_getData.js" defer></script>
-    <script type="text/javascript" src="js/algo/20_searchData.js" defer></script>
 
     <script type="text/javascript" src="js/algo/00_init.js" defer></script>
     
@@ -48,7 +49,7 @@
      
   
         <div id="filterResult" class="filterResult">
-          <!--
+         <!--
           <P class="filterTag filterTag--blue color--ingredients" 
           data-tag data-context="ingredients" data-fields="ingredient" data-depth="lowerLevel" data-value="coco">
           coco
@@ -65,7 +66,7 @@
           data-tag data-context="ustensils" data-fields="ustensils" data-depth="lowerLevel" data-value="verres">
             verres
           <i class="far fa-times-circle" data-js="delParent" ></i></p>
-          -->
+         -->
         </div>
   
  
@@ -85,44 +86,36 @@
           
             <label id="inputTrigger--ingredients" class="inputTrigger" data-status="close">
                 <input type="text" placeholder="Ingredients" class="color--ingredients" data-placeholder="Ingredients"
-                data-js="search" data-context="ingredients" data-fields="ingredient" data-depth="lowerLevel">
+                data-sugg  data-js="search" data-context="ingredients" data-fields="ingredient" data-depth="lowerLevel">
                 <i class="fas fa-chevron-down" data-js="openListing" data-context="ingredients"></i>
                 <i class="fas fa-chevron-up elHidden" data-js="closeListing" data-context="ingredients"></i>                             
             </label>
        
           
-          <!-- Input appareil-->  
+            <!-- Input appareil-->  
 
          
             <label id="inputTrigger--appliance" class="inputTrigger" data-status="close">
                 <input type="text" placeholder="Appareil" class="color--appliance" data-placeholder="Appareil"
-                 data-js="search" data-context="appliance"  data-fields="appliance" data-depth="root">
+                data-sugg  data-js="search" data-context="appliance"  data-fields="appliance" data-depth="root">
                 <i class="fas fa-chevron-down" data-js="openListing" data-context="appliance"></i>
                 <i class="fas fa-chevron-up elHidden" data-js="closeListing" data-context="appliance"></i>                 
             </label>
          
 
-             <!-- Input ustensiles-->
+            <!-- Input ustensiles-->
             
             <label id="inputTrigger--ustensils" class="inputTrigger" data-status="close">
                 <input type="search" placeholder="Ustensiles" class="color--ustensils" data-placeholder="Ustensiles"
-                 data-js="search" data-context="ustensils" data-fields="ustensils" data-depth="lowerLevel">
+                data-sugg  data-js="search" data-context="ustensils" data-fields="ustensils" data-depth="lowerLevel">
                 <i class="fas fa-chevron-down" data-js="openListing" data-context="ustensils"></i>
                 <i class="fas fa-chevron-up elHidden" data-js="closeListing" data-context="ustensils"></i>              
             </label>  
          
 
     </header>
-<main class="main">
 
-  <section class="mainWrapper"></section>
-
-
-
-
-
-
-</main>
+    <main id="main" class="main"></main>
 
   
     <span class="repere--X repere__1--X"></span>
@@ -131,11 +124,6 @@
     <span class="repere--Y repere__1--Y"></span>
     <span class="repere--Y repere__2--Y"></span>
     <span class="repere--Y repere__3--Y"></span>
-
-
-
-
-    
 
   </body>
 

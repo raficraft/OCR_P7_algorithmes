@@ -1,8 +1,6 @@
-class listing{
+class createListing{
 
     constructor(thisData,options){
-
-
 
         this.elHTML = `<ul id="inputList--${options.context}" class="inputList color--${options.context}">`
 
@@ -16,6 +14,7 @@ class listing{
                     data-fields=${options.fields} 
                     data-depth=${options.depth}
                     data-value="${data}"
+                    data-search="${data}"
                     >${data}</li>`;  
                 }        
             });
@@ -23,8 +22,5 @@ class listing{
                 this.elHTML += `<li class="ListError">Aucun résultat</li>` 
             }
         this.elHTML += `</ul>`
-
-
     }
-
 }

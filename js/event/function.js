@@ -1,122 +1,220 @@
-const delParent = target => target.parentNode.remove();
 
-const openListing = target => {
+const sortSuggestion = (thisData) => {
 
-  // target is fontAwesome Icon
-  const targetParent = target.parentNode; //label.inputTrigger
-  const targetInput = target.previousElementSibling; //input
-  //Data attributes fusionnée entre ceux présent dans l'Input et l'icone cliqué
-  const options = targetInput.dataset;
-  const targetLabel = document.querySelector(`#inputTrigger--${options.context}`);
-  let thisListing = [];
-
-  console.log(options);
-
-  // On Récupère tout le label (Un seul ouvert à la fois) possédant la classe open et on ferme
-  //Conditionné si un listing est ouvert
-  closeListing(targetLabel);
-
-  switch (options.depth) {
-
-    case "lowerLevel":
-      //A découper injectListing
-      thisListing = makeComponent( new listing( getData.allDataLowerLevel(options), options));
-      renderComponent(thisListing, targetLabel);
-      new EventsDispatcher('[data-js="getTag"]');
-      //
-      targetInput.setAttribute("placeholder", `Rechercher un ${options.context}`);
-      targetParent.setAttribute("data-status", "openList");
-
-      break;
-
-    case "root":
-      thisListing = makeComponent( new listing(getData.allDataRoot(options), options));
-      renderComponent(thisListing, targetLabel);
-      new EventsDispatcher('[data-js="getTag"]');
-      targetInput.setAttribute("placeholder", `Rechercher un ${options.context}`);
-      targetParent.setAttribute("data-status", "openList");
-
-      break;
-  }
-}
-
-const closeListing = (exclude) => {
-
-    const thisOpen = document.querySelector('[data-status="openList"]')
-    const elRemove = document.querySelector('.inputList')
-
-       if (document.querySelectorAll(".inputList").length > 0) {
-         document.querySelector(".inputList").remove();
-         resetOtherInput(exclude)
-
-       }
-
-    if(thisOpen){    
-        if(elRemove){
-            elRemove.remove()
-        }
-
-        const childOfOpen = thisOpen.firstElementChild //#text->input 
-        const options = childOfOpen.dataset //#text->input 
-        childOfOpen.setAttribute('placeHolder',options.placeHolder)      
-        thisOpen.setAttribute('data-status','close')
-
+  let result =[]
+  thisData.forEach((el) => {
+    if (!result.includes(el.value)) {
+      result.push(el.value);
     }
+  });
+
+  return result
 
 }
 
-const resetAllInput = ()=>{
-      const allList = document.querySelectorAll(".inputTrigger");
+const getIdBykeyWord = (target) => {
 
-      allList.forEach((thisOpen) => {
-        const childOfOpen = thisOpen.firstElementChild; //#text->input  Write function getFirstChild ???
-        const placeHolder = childOfOpen.dataset.placeholder;
+          
+  let idBykeywords = []
+  let allElems = []
+  allElems.push(target)
 
-        childOfOpen.value = "";
-        childOfOpen.setAttribute("placeHolder", placeHolder);
-        thisOpen.setAttribute("data-status", "close");
-      });
+
+  const tags = document.querySelectorAll(".filterResult [data-tag]");
+
+
+  if (tags.length > 0) {  tags.forEach((el) => allElems.push(el)); }
+
+  allElems.forEach((els) => {
+
+      const options = els.dataset;
+      options.search = els.dataset.value;
+      idBykeywords.push(getData.specificData(options))
+
+  });
+
+  /***/
+ return idBykeywords
 }
 
-const resetOtherInput = (exclude)=>{
-      const allList = document.querySelectorAll(".inputTrigger");
+const getUniqueID = (thisData) =>{
 
-      allList.forEach((thisOpen) => {
-        if(thisOpen !== exclude){
-        const childOfOpen = thisOpen.firstElementChild; //#text->input  Write function getFirstChild ???
-        const placeHolder = childOfOpen.dataset.placeholder;
+  comparaisonChart = []
 
-        childOfOpen.value = "";
-        childOfOpen.setAttribute("placeHolder", placeHolder);
-        thisOpen.setAttribute("data-status", "close");
+  thisData.forEach((data) => {
+    data.forEach((value) => {
+      if (!comparaisonChart.includes(value.idRecipe)) {
+          comparaisonChart.push(value.idRecipe);
+      }
+    });
+  });
+
+  return comparaisonChart
+
+}
+
+const sortIdInAllArray = (idByKeyWords,comparaisonChart)=>{
+
+  const sortId = (
+    idByKeyWords,
+    limit,
+    count,
+    comparaisonChart,
+    idValid = []
+  ) => {
+
+    idByKeyWords[count].forEach((el) => {
+      comparaisonChart.forEach((idControl) => {
+        if (el.idRecipe === idControl) {
+          if (!idValid.toString().includes(el.idRecipe.toString())) {
+            idValid.push(el.idRecipe);
+          }
         }
       });
+    });
+
+    count++;
+    if (count === limit) {
+      return idValid;
+    } else if (count < limit) {
+      comparaisonChart = idValid;
+      return sortId(idByKeyWords, limit, count, comparaisonChart);
+      //return sortId(idByKeyWords, limit, count, idValid); ???
+    }
+  };
+
+  const limit = idByKeyWords.length
+  let IDresult = sortId(idByKeyWords,limit,0,comparaisonChart)
+
+  return IDresult
 }
 
+const delRecipes = ()=>{
 
-const getResultToRootAndLowerLevel = (options) => {
-
-  result = []
-     switch (options.depth) {
-        case "lowerLevel":
-          result = getData.specificDataLowerLevel(options);
-          break;
-        case "root":
-          result = getData.specificDataRoot(options);
-          break;
-      }
-  return result;
-
-}
-
-
-const showErroMessage = (message) =>{
-
-}
-
-//Reset de toutes les listes au click dans le dom
-window.addEventListener('click', (e) => { 
+  console.error('reset des recettes');
   
-    resetAllInput();
+  if (document.querySelectorAll(".sticker").length > 0) {
+      let removethis = document.querySelectorAll(".sticker");
+      removethis.forEach((el) => {
+          el.remove();
+      });
+  } 
 
-});
+
+}
+
+const showRecipesByID = (recipes) => {
+
+  const recipesComponent = makeComponent(new createRecipe(recipes));
+  const targetRenderRecipes = document.querySelector("#main");
+  renderComponent(recipesComponent, targetRenderRecipes);
+}
+
+
+const showValidTags = tagsValid =>{
+
+  const showTarget = document.querySelector("#filterResult");     
+  const thisTags = makeComponent(new createTags(tagsValid.dataset));
+  renderComponent(thisTags, showTarget); 
+
+
+
+}
+
+const delTags = target => {
+
+  target.remove()
+
+}
+
+const  majListing = (recipesByID) =>{
+
+      init.options.forEach((req) => {
+        let newListing = [];
+         switch (req.depth) {
+           case "lowerLevel":
+            
+
+               recipesByID.forEach((recipe) => {
+                 const thisArray = recipe[req.context];
+
+                 thisArray.filter((el) => {
+                  if (req.fields !== req.context) {  el = el[req.fields];  }               
+
+                      if (!newListing.includes(el)) { newListing.push(el); }                 
+
+                 });
+               });
+              
+                //On réinitilise le clique dans le nouveau listing
+                showNewListing(req,newListing)
+
+            break;
+
+
+            case "root":
+
+
+              recipesByID.forEach((recipe) => {  
+                if(!newListing.includes(recipe.appliance)){
+                  
+                  newListing.push(recipe.appliance)
+                }
+              }) 
+
+              showNewListing(req,newListing)
+
+            break;
+         }
+       });
+
+
+       //On supprime les tags dans les list
+    
+
+}
+
+const showNewListing = (req,newListing) => {
+
+  let targetLabel = document.querySelector(`#inputTrigger--${req.context}`);
+  thisListing = makeComponent(new createListing(newListing, req));
+  const rootElement = document.querySelector(`#inputTrigger--${req.context} ul`)
+  if(rootElement){
+  document.querySelector(`#inputTrigger--${req.context} ul`).remove()
+  }
+  renderComponent(thisListing, targetLabel);
+
+}
+
+
+
+const filterNewListingByTags = () => {
+
+
+  const allTags = document.querySelectorAll('.filterTag')
+
+  allTags.forEach(tag => {
+  
+    const checkValue = tag.dataset.value
+    const removeThis = document.querySelector(`li[data-value="${checkValue}"]`)
+    removeThis.remove()
+  
+  });
+
+
+}
+
+
+
+
+
+/// TAGS
+
+
+const getIdByTags = ()=>{
+
+
+
+
+}
+

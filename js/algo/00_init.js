@@ -15,7 +15,9 @@ const makeComponent = (callback) => {
  * @param {Object} injectThis Element HTML commandé par la factory au usine factory/workshop.js
  * @param {HTMLElement} target 
  */
-function renderComponent(injectThis,target){
+const renderComponent = (injectThis,target) => {
+
+
 
     if(!injectThis.length){
             target.insertAdjacentHTML("beforeend",injectThis.elHTML)
@@ -28,43 +30,87 @@ function renderComponent(injectThis,target){
 
 
 //
-
-const searchSpecific = new SearchData()
 const getData = new GetData()
 
 
-class init{
+class Init{
     
     constructor(){
       //On passe le JSON dans l'atelier pour obtenir le Bloc HTML
       //qui affiche toutes les recettes
+      this.options = this.getOption() 
+      this.dataType = this.getAllType()  // Listing Complet des ingrédients // appliance et ustensils 
+      this.recipes = dataJSON 
 
-      const recipesComponent = makeComponent(new createRecipe(dataJSON));
-      const targetRenderRecipes = document.querySelector(".mainWrapper");
-      renderComponent(recipesComponent, targetRenderRecipes);
-
-      // Toutes les entrées relatives au ingredients/appareil/ustensiles sont demandés au démarrgae de l'application
-      // Code migrant accessible dans tout les scopes fermer
-
-      const optionsIng = document.querySelector(
-        "#inputTrigger--ingredients INPUT"
-      ).dataset;
-      const dataIng = getData.allDataLowerLevel(optionsIng);
-
-      const optionsUst = document.querySelector(
-        "#inputTrigger--ustensils INPUT"
-      ).dataset;
-      const dataUst = getData.allDataLowerLevel(optionsUst);
-
-      const optionsApp = document.querySelector(
-        "#inputTrigger--appliance INPUT"
-      ).dataset;
-      const dataApp = getData.allDataRoot(optionsApp);
+      //Execution des méthode à l'instanciation
+      this.renderListing()
+      this.renderRecipes()
     }
 
-}
 
-new init()
+    getOption(){
+       const allSug = document.querySelectorAll('[data-sugg]')
+       //On créait le tableau des options à partir des INPUT
+
+       let options = []
+       allSug.forEach(sugg=>{
+       options.push(sugg.dataset)       
+       })   
+
+      return options
+    }
+
+    getAllType(){
+
+        let dataType =[]
+        this.options.forEach(O => {
+            dataType[O.context] = (getData.allDataType(O))
+        })
+
+        let optionsGlobalSearch = [
+            {js : 'global',context : 'name',fields :  'name',depth : 'root'},
+            {js : 'global',context : 'description',fields :  'description',depth : 'root'},
+        ]
+
+        let dataGlobal = []
+        optionsGlobalSearch.forEach(O=>{
+            dataGlobal[O.context] = (getData.allDataType(O))
+        })
+        const allData =  Object.assign({}, dataType, dataGlobal); 
+        return allData
+
+    }
+
+
+    renderListing(){
+        
+        this.options.forEach(O => {
+
+            let data = getData.allDataType(O)
+            const listingContainer = document.querySelector(`#inputList--${O.context}`)
+
+            if(listingContainer){
+                listingContainer.remove()
+            }
+
+            const listingComponent = makeComponent(new createListing(data,O));
+            const targetListing = document.querySelector(`#inputTrigger--${O.context}`);
+            renderComponent(listingComponent, targetListing);
+            window.listingEvent = new ListingEvent(O)
+            
+        });        
+    }
+
+    // Affichage de toutes les recettes
+    renderRecipes(){
+        const recipesComponent = makeComponent(new createRecipe(dataJSON));
+        const targetRenderRecipes = document.querySelector("#main");
+        renderComponent(recipesComponent, targetRenderRecipes);
+    }
+}
+const init = new Init()
+
+
 
 
 
