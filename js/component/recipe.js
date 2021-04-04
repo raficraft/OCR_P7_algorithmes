@@ -1,15 +1,18 @@
 class createRecipe{
 
 
+
     constructor(thisData){
+    
 
     this.elHTML = '<section class="mainWrapper">'
+    let styleDelay =0
 
         thisData.forEach(data => {
 
 
             this.elHTML += 
-                `<article class="sticker" data-id="${data.id}">
+                `<article class="sticker" data-id="${data.id}" style="animation-delay:${styleDelay}ms;">
                     <p class="flexImg"></p>
                 <article>
                 <header>
@@ -40,6 +43,8 @@ class createRecipe{
                         </footer>
                     </article>
                 </article>`
+
+        styleDelay=styleDelay+200
 
         });
 

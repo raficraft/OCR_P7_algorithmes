@@ -32,25 +32,27 @@ class ListingEvent{
             this.closeListing()
         })
 
-        this.tagsLink.forEach((tags) =>  tags.addEventListener("click", (e) => {
-      
+        this.tagsLink.forEach((tags) =>  tags.addEventListener("click", (e) => {      
             e.preventDefault();   e.stopPropagation();         
             this.getTag(e.target)            
         }));        
 
         this.input.addEventListener('click',(e)=>{ e.preventDefault();   e.stopPropagation(); this.resetInput() })
 
-        this.input.addEventListener('keyup',(e)=>{
+        this.input.addEventListener('keyup',debounce((e)=>{
+
+            e.preventDefault()
 
             const target = e.target
             if(target.value.length > 2){
-                this.options.search = target.value
+                this.options.search = target.value  
+                console.log(target.value);             
                 this.getSuggestion()
-            }else if(target.value.length > 0){
+            }else if(target.value.length === 0){
                 this.rootElement.setAttribute("data-status", "close"); 
                 init.renderListing()
             }
-        })
+        },300))
     }
 
 
@@ -114,31 +116,34 @@ class ListingEvent{
         this.listing.remove()
         
 
-        if(this.rootElement.dataset.status === 'close'){
-            this.rootElement.setAttribute("data-status", "openSuggestion");
-            const listingComponent = makeComponent(new createListing(sortData,this.options));
-            renderComponent(listingComponent, this.rootElement);
-            console.log(init.options);
+            if(this.rootElement.dataset.status === 'close' || this.rootElement.dataset.status === 'openSuggestion'){
+                this.rootElement.setAttribute("data-status", "openSuggestion");
+                const listingComponent = makeComponent(new createListing(sortData,this.options));
+                renderComponent(listingComponent, this.rootElement);
 
-            init.options.forEach(O=>{
-
-               window.ListingEvent = null
-               window.listingEvent = new ListingEvent(O)
-            })
-            
+                init.options.forEach(O=>{
+                    new ListingEvent(O)
+                })            
+            }
         }
     }
-}
 
-    getTag(target){     
+    getTag(target){ 
+        
+        console.error(globalSearch.resultRecipes);
         
         if(this.rootElement.dataset.status !== 'openList'){
             this.rootElement.dataset.status = 'openList'
         }
 
+        console.log(target);
+
         const idByKeywords = getIdBykeyWord(target)
-        const uniqueID     = getUniqueID(idByKeywords)       
+       // console.log(idByKeywords);
+        const uniqueID     = getUniqueID(idByKeywords)  
+       // console.log(uniqueID);     
         const validID      = sortIdInAllArray(idByKeywords,uniqueID)
+       // console.log(validID);
 
         if(validID.length > 0){
 
@@ -153,30 +158,33 @@ class ListingEvent{
             //On réinitilise le clique dans les nouveaux listing
             init.options.forEach(O =>{  new ListingEvent(O)  })
             showValidTags(target)
-            filterNewListingByTags()
 
-            const tagsEvent = new TagsEvent()
+            const delThisValueOnLinsting = target.dataset.value
+            removeTagInListing(delThisValueOnLinsting)
 
+            new TagsEvent()
+
+            console.log(validID.length);
             if(validID.length === 1){
 
                 console.log('uneSeule');
 
                 init.options.forEach(O => {
-                this.listing = document.querySelector(`#inputList--${O.context}`)
-                console.log(this.listing);
-             
+
+                this.listing = document.querySelector(`#inputList--${O.context}`) 
+                console.log(this.listing);            
                 this.listing.remove()
                 });
-    
-    
             }
+            
+        }else{
+            showMessage('error','Aucun résultat avec ce filtre') 
         }
 
     }
-
-
-
 }
+
+
 
 
 window.addEventListener('click', (e) => {

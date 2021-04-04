@@ -42,6 +42,13 @@ class Init{
       this.dataType = this.getAllType()  // Listing Complet des ingrédients // appliance et ustensils 
       this.recipes = dataJSON 
 
+
+      this.globalOptions = [
+       /* {context : 'name', fields : 'name' , depth : 'root' },*/
+        {context : 'ingredients', fields : 'ingredient' , depth : 'lowerLevel' },
+      /*  {context : 'description', fields : 'description' , depth : 'root' },*/
+      ]  
+
       //Execution des méthode à l'instanciation
       this.renderListing()
       this.renderRecipes()
@@ -76,7 +83,8 @@ class Init{
         optionsGlobalSearch.forEach(O=>{
             dataGlobal[O.context] = (getData.allDataType(O))
         })
-        const allData =  Object.assign({}, dataType, dataGlobal); 
+        const allData =  Object.assign({}, dataType, dataGlobal);
+        console.log(allData); 
         return allData
 
     }
@@ -96,6 +104,7 @@ class Init{
             const listingComponent = makeComponent(new createListing(data,O));
             const targetListing = document.querySelector(`#inputTrigger--${O.context}`);
             renderComponent(listingComponent, targetListing);
+            window.listingEvent
             window.listingEvent = new ListingEvent(O)
             
         });        
@@ -108,6 +117,8 @@ class Init{
         renderComponent(recipesComponent, targetRenderRecipes);
     }
 }
+
+
 const init = new Init()
 
 

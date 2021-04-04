@@ -319,6 +319,11 @@ header {
   background-color: #e7e7e7;
   border-radius: 5px;
   margin-bottom: 50px;
+  opacity: 0;
+  animation: soft_show_from_down;
+  animation-duration: 2s;
+  animation-fill-mode: forwards;
+  transform: translateY(100px);
 }
 .sticker .flexImg {
   display: flex;
@@ -479,6 +484,53 @@ header {
 
 .ListError {
   cursor: none;
+}
+
+.alertMessage {
+  position: absolute;
+  top: -100px;
+  border-bottom: 1px solid;
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+  left: 0;
+  right: 0;
+  color: white;
+  animation: slideBottom linear 0.5s forwards, slideTop 0.5s linear 3.5s forwards;
+}
+.alertMessage--error {
+  background-color: #ec6454;
+  border-bottom: 8px solid #fbe1de;
+}
+.alertMessage--info {
+  background-color: #3282f7;
+  border-bottom: 8px solid #c5ddfd;
+}
+
+@keyframes slideBottom {
+  from {
+    top: -100px;
+  }
+  to {
+    top: 0px;
+  }
+}
+@keyframes slideTop {
+  from {
+    top: 0px;
+  }
+  to {
+    top: -100px;
+  }
+}
+@keyframes soft_show_from_down {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0px);
+  }
 }
 
 /*# sourceMappingURL=style.css.map */

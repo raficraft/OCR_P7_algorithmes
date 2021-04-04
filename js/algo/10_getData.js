@@ -2,6 +2,7 @@ class GetData{
 
     constructor(){
         this.JSON = dataJSON; // Si fetch {new getJSON(dataJSON)} 
+        console.log(this.JSON);
     }
 
     allDataType(options){

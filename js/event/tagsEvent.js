@@ -2,6 +2,7 @@ class TagsEvent{
 
     constructor(){
 
+        console.error('initTagsEvent');
 
         this.tags = document.querySelectorAll('.filterTag')
         this.tags.forEach(tag =>{
@@ -30,10 +31,13 @@ class TagsEvent{
 
         if(this.tags.length > 0 ){
 
-            
-            const idByTags = this.getIdByTags(this.tags)
-            const uniqueID     = getUniqueID(idByTags)       
+            console.log(this.tags);
+
+            const idByTags     = getIdByTags(this.tags)      
+            const uniqueID     = getUniqueID(idByTags)  
+            console.log(uniqueID);     
             const validID      = sortIdInAllArray(idByTags,uniqueID)
+            console.log(validID);
            
 
             if(validID.length > 0){
@@ -48,43 +52,24 @@ class TagsEvent{
                 
                 //On réinitilise le clique dans les nouveaux listing
                 init.options.forEach(O =>{  new ListingEvent(O)  })
-               
-                filterNewListingByTags()
+                const delThisValueOnLinsting = target.dataset.value
+                removeTagInListing(delThisValueOnLinsting)
     
     
-            }else{
-    
-               //console.error('Aucun Résultat');
-    
+            }else{    
+              showMessage('error','Aucun résultat')    
             }
-            
-
 
         }else{
-
-            delRecipes() 
+            delRecipes()           
             const init = new Init
-
         }
 
      
 
     }
 
-    getIdByTags(tags){
-
-        const idByTags = []
-
-        tags.forEach((tag)=>{
-
-            const options = tag.dataset
-            options.search = tag.dataset.value
-            idByTags.push(getData.specificData(options))
-        })
-
-        return idByTags
-
-    }
+   
 
 
 }

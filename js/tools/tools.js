@@ -25,7 +25,7 @@
  * @param {objet} obj 
  */
 Object.size = (obj) => {
-    var size = 0,
+    let size = 0,
       key;
     for (key in obj) {
       if (obj.hasOwnProperty(key)) size++;
@@ -136,17 +136,86 @@ const toggleAttribute = (element,attributes,oldAttr,newAttr) =>{
 
 
 
+/*Empeche la function passé en callBack 
+  de se déclenché à chaque event dans un certain.
+   Elle ne ce déclenchera que si le délay passé et 
+   supérieur entre deux event de même nature
+*/
 
-function debounce(callback, delay){
-    var timer;
+debounce = (callback, delay) => {
+    let timer;
     return function(){
-        var args = arguments;
-        var context = this;
+        let args = arguments;
+        let context = this;
         clearTimeout(timer);
         timer = setTimeout(function(){
             callback.apply(context, args);
         }, delay)
     }
+}
+
+
+/*Limite le nombre d'appel à une fonction à laps de temps restreint*/
+function throttle(callback, delay) {
+  let last;
+  let timer;
+  return function () {
+      let context = this;
+      let now = +new Date();
+      let args = arguments;
+      if (last && now < last + delay) {
+          // le délai n'est pas écoulé on reset le timer
+          clearTimeout(timer);
+          timer = setTimeout(function () {
+              last = now;
+              callback.apply(context, args);
+          }, delay);
+      } else {
+          last = now;
+          callback.apply(context, args);
+      }
+  };
+}
+
+
+
+const elementDistribution = (container,el,count) =>{
+
+      // Redifinie le style des éléments contenue dans une container 
+      // Parent quand leur nombre est inférieur à une valeur attendue {count}
+
+      const thisEl = document.querySelectorAll(el)
+      const size = thisEl.length      
+      const thisParent = document.querySelector(container)
+
+
+      this.multipleOf = (value ,count)=>{
+
+          if (value%count == 0)
+            return true;
+          else
+            return false;      
+      } 
+
+     
+
+      if(this.multipleOf(size,count) === false || thisEl.length === 1){
+
+          if(!thisParent.classList.contains('orderContent__center')){
+              thisParent.classList.add('orderContent__center')
+          }
+
+          for(let i = 0; i < size; i++){
+              thisEl[i].style.marginLeft  = '2rem'
+              thisEl[i].style.marginRight  = '2rem'
+          }
+      }else{
+
+          if(thisParent.classList.contains('orderContent__center')){
+              thisParent.classList.remove('orderContent__center')
+          }
+
+      }
 }
 
 

@@ -13,8 +13,8 @@ class createListing{
                     data-context="${options.context}" 
                     data-fields=${options.fields} 
                     data-depth=${options.depth}
-                    data-value="${data}"
-                    data-search="${data}"
+                    data-value="${normalizeString(data)}"
+                    data-search="${normalizeString(data)}"
                     >${data}</li>`;  
                 }        
             });

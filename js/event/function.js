@@ -12,10 +12,48 @@ const sortSuggestion = (thisData) => {
 
 }
 
+const idByGlobalSearch = (keyWords)=>{
+
+  const idByGlobal = []
+  
+  const keyWordsArray = keyWords.split(' ')
+
+  keyWordsArray.forEach(search => {
+      init.globalOptions.forEach(O => {
+      O.search = search
+      idByGlobal.push(getData.specificData(O));                    
+      });                
+  });
+
+  console.log(idByGlobal);
+  return idByGlobal
+
+}
+
+const getIdByTags = (tags) =>{
+
+  const idByTags = []
+
+  if(document.querySelector('.search input').value !==''){
+    idByTags.push(idByGlobalSearch(document.querySelector('.search input').value))
+  }
+
+  tags.forEach((tag)=>{
+
+      const options = tag.dataset
+      options.search = tag.dataset.value
+      idByTags.push(getData.specificData(options))
+  })
+
+  return idByTags
+
+}
+
 const getIdBykeyWord = (target) => {
 
           
   let idBykeywords = []
+
   let allElems = []
   allElems.push(target)
 
@@ -33,7 +71,10 @@ const getIdBykeyWord = (target) => {
 
   });
 
+
   /***/
+
+  console.log(idBykeywords);
  return idBykeywords
 }
 
@@ -105,8 +146,10 @@ const delRecipes = ()=>{
 
 const showRecipesByID = (recipes) => {
 
-  const recipesComponent = makeComponent(new createRecipe(recipes));
-  const targetRenderRecipes = document.querySelector("#main");
+  console.error(recipes.length);
+  showMessage('info',`${recipes.length} résultats trouvés`) 
+  const recipesComponent = makeComponent(new createRecipe(recipes));  
+  const targetRenderRecipes = document.querySelector("#main");  
   renderComponent(recipesComponent, targetRenderRecipes);
 }
 
@@ -156,8 +199,7 @@ const  majListing = (recipesByID) =>{
 
 
               recipesByID.forEach((recipe) => {  
-                if(!newListing.includes(recipe.appliance)){
-                  
+                if(!newListing.includes(recipe.appliance)){                  
                   newListing.push(recipe.appliance)
                 }
               }) 
@@ -186,35 +228,31 @@ const showNewListing = (req,newListing) => {
 
 }
 
+const removeTagInListing = (value) => {  
 
+    value = normalizeString(value)
 
-const filterNewListingByTags = () => {
-
-
-  const allTags = document.querySelectorAll('.filterTag')
-
-  allTags.forEach(tag => {
-  
-    const checkValue = tag.dataset.value
-    const removeThis = document.querySelector(`li[data-value="${checkValue}"]`)
-    removeThis.remove()
-  
-  });
-
+    if(document.querySelector(`li[data-value="${value}"]`)){
+      const removeThis = document.querySelector(`li[data-value="${value}"]`)
+      removeThis.remove()
+    }
 
 }
 
 
 
+//Message
 
+const showMessage = (type,message)=>{
 
-/// TAGS
+  const messageComponent = makeComponent(new CreateAlertMessage(type,message));
+  const targetRenderMessage = document.querySelector('body');
+  renderComponent(messageComponent, targetRenderMessage);
+  setTimeout(function(){ document.querySelector('.alertMessage').remove() }, 4000);
 
+}
 
-const getIdByTags = ()=>{
-
-
-
+removeAllTags = () => {
 
 }
 
