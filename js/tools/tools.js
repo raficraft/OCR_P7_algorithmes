@@ -3,7 +3,14 @@
  * @returns Une chaine de caratère standart
  */
 
+
+
  const normalizeString = (str) =>{
+
+    if(typeof(str) === 'number'){
+        str = str.toString()
+    }
+
     return str
         .toLowerCase()
         .normalize("NFD")

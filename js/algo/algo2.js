@@ -8,12 +8,16 @@ class GlobalSearch{
         this.input.addEventListener('keyup',debounce((e)=>{
 
 
+            console.error(e.target.value);
+
+
             if(e.target.value.match(/^[a-zA-Z\d\-\s]+$/) && e.key!==' '){
 
                 console.log(e.target.value);
 
                 if(e.target.value.length > 2){
                 getData.JSON = dataJSON
+                removeAllTags()
                 this.request(e.target.value)
                 }
 
@@ -24,6 +28,11 @@ class GlobalSearch{
                     'Caractère invalide, veuillez saisir des caratères alphabétiques seulement.'
                 )  
 
+            }else if(e.target.value === ''){
+
+                delRecipes()           
+                new Init
+
             }
         },300))
     }
@@ -33,13 +42,6 @@ class GlobalSearch{
         keyWords = keyWords.trim().replace(/  +/g, ' ') //vire tous les espaces comprit dans la chaîne de caractères      
         const idByGlobal = idByGlobalSearch(keyWords)
         const uniqueID = getUniqueID(idByGlobal) 
-
-        /**
-         * 
-        const idByGlobal = idByGlobalSearch(keyWords)
-        const uniqueID     = getUniqueID(idByGlobal) 
-        const validID      = sortIdInAllArray(idByGlobal,uniqueID)
-         */
         
         if(uniqueID.length > 0){
 
@@ -54,14 +56,15 @@ class GlobalSearch{
                 window.listingEvent =   new ListingEvent(O)              
             })     
             
-            const keyWordsArray = keyWords.split(' ')
-            
+            // Supprime les mots clefs qui matchent dans les listing
+            const keyWordsArray = keyWords.split(' ')            
             keyWordsArray.forEach(delThis => {
                 console.log(delThis);
                 removeTagInListing(delThis) 
             });
 
-            getData.JSON = recipesByID //redifinie le tableau des recettes
+            //redifinie le tableau des recettes dans laquelle la recherche s'effectue
+            getData.JSON = recipesByID 
 
         }else{    
             showMessage('error','Aucun résultat')    

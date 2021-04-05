@@ -60,7 +60,7 @@ class ListingEvent{
     
     openListing(){
 
-        this.closeListing(this.rootElement);      
+        this.closeListing();      
         this.input.setAttribute("placeholder", `Rechercher un ${this.options.context}`);
         this.rootElement.setAttribute("data-status", "openList");     
       
@@ -68,22 +68,22 @@ class ListingEvent{
     
     closeListing(){
       
-          const thisOpen = document.querySelector('[data-status="openList"]')
+        const thisOpen = document.querySelector('[data-status="openList"]')
       
-            if (document.querySelectorAll(".inputList").length > 0) {         
-            this.resetInput()
-            //init.renderListing()
-            }
-      
-          if(thisOpen){  
-      
+        if (document.querySelectorAll(".inputList").length > 0) {         
+        this.resetInput()
+        //init.renderListing()
+        }
+    
+        if(thisOpen){  
+    
             const childOfOpen = thisOpen.firstElementChild; //#text->input
             const placeHolder = childOfOpen.dataset.placeholder;
     
             childOfOpen.setAttribute("placeHolder", placeHolder);
             thisOpen.setAttribute("data-status", "close");
 
-          }
+        }
       
     }
 
@@ -170,11 +170,13 @@ class ListingEvent{
                 console.log('uneSeule');
 
                 init.options.forEach(O => {
-
                 this.listing = document.querySelector(`#inputList--${O.context}`) 
                 console.log(this.listing);            
                 this.listing.remove()
                 });
+
+                closeListing()
+                //disableInput()
             }
             
         }else{

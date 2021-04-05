@@ -44,9 +44,9 @@ class Init{
 
 
       this.globalOptions = [
-       /* {context : 'name', fields : 'name' , depth : 'root' },*/
+        {context : 'name', fields : 'name' , depth : 'root' },
         {context : 'ingredients', fields : 'ingredient' , depth : 'lowerLevel' },
-      /*  {context : 'description', fields : 'description' , depth : 'root' },*/
+        {context : 'description', fields : 'description' , depth : 'root' }
       ]  
 
       //Execution des méthode à l'instanciation
@@ -93,6 +93,8 @@ class Init{
     renderListing(){
         
         this.options.forEach(O => {
+
+            console.log(O);
 
             let data = getData.allDataType(O)
             const listingContainer = document.querySelector(`#inputList--${O.context}`)

@@ -1,5 +1,6 @@
 
 const sortSuggestion = (thisData) => {
+  
 
   let result =[]
   thisData.forEach((el) => {
@@ -16,14 +17,36 @@ const idByGlobalSearch = (keyWords)=>{
 
   const idByGlobal = []
   
-  const keyWordsArray = keyWords.split(' ')
+  const keyWordsArray = keyWords.split(' ') 
 
-  keyWordsArray.forEach(search => {
+    keyWordsArray.forEach(search => {
+
+      // Verifie en amont si le mot clef Demandé renvoie
+      // au moins des resultat non null dans une des champs de
+      // recherche [name, ingredients, description]
+      const validSearch = checkResultKeyWords(search)
+
       init.globalOptions.forEach(O => {
-      O.search = search
-      idByGlobal.push(getData.specificData(O));                    
-      });                
-  });
+
+        O.search = search
+        const result  = getData.specificData(O)  
+
+        if(validSearch === true){
+
+          idByGlobal.push(result); 
+
+        }else{
+
+          //On supprime le mot clef qui ne renvoie pas de résultat, du champ de recherche  
+          thisInput = document.querySelector('.search input')
+          const str = thisInput.value
+          thisInput.value = str.replace(`${search}` , '')
+
+        }
+
+      });  
+
+    });
 
   console.log(idByGlobal);
   return idByGlobal
@@ -140,8 +163,6 @@ const delRecipes = ()=>{
           el.remove();
       });
   } 
-
-
 }
 
 const showRecipesByID = (recipes) => {
@@ -152,7 +173,6 @@ const showRecipesByID = (recipes) => {
   const targetRenderRecipes = document.querySelector("#main");  
   renderComponent(recipesComponent, targetRenderRecipes);
 }
-
 
 const showValidTags = tagsValid =>{
 
@@ -167,16 +187,19 @@ const showValidTags = tagsValid =>{
 const delTags = target => {
 
   target.remove()
+  console.log('del');
 
 }
 
 const  majListing = (recipesByID) =>{
 
+  
+
       init.options.forEach((req) => {
+       
         let newListing = [];
          switch (req.depth) {
-           case "lowerLevel":
-            
+           case "lowerLevel":            
 
                recipesByID.forEach((recipe) => {
                  const thisArray = recipe[req.context];
@@ -190,6 +213,7 @@ const  majListing = (recipesByID) =>{
                });
               
                 //On réinitilise le clique dans le nouveau listing
+                console.log(newListing);
                 showNewListing(req,newListing)
 
             break;
@@ -197,10 +221,9 @@ const  majListing = (recipesByID) =>{
 
             case "root":
 
-
               recipesByID.forEach((recipe) => {  
-                if(!newListing.includes(recipe.appliance)){                  
-                  newListing.push(recipe.appliance)
+                if(!newListing.includes(recipe[req.context])){                  
+                  newListing.push(recipe[req.context])
                 }
               }) 
 
@@ -212,11 +235,12 @@ const  majListing = (recipesByID) =>{
 
 
        //On supprime les tags dans les list
-    
-
 }
 
 const showNewListing = (req,newListing) => {
+
+  console.log(req.context);  
+  console.log(newListing);
 
   let targetLabel = document.querySelector(`#inputTrigger--${req.context}`);
   thisListing = makeComponent(new createListing(newListing, req));
@@ -239,8 +263,6 @@ const removeTagInListing = (value) => {
 
 }
 
-
-
 //Message
 
 const showMessage = (type,message)=>{
@@ -252,7 +274,60 @@ const showMessage = (type,message)=>{
 
 }
 
-removeAllTags = () => {
+const removeAllTags = () => {
+
+  const allTags = document.querySelectorAll('.filterTag')
+
+  if(allTags.length > 0){
+    allTags.forEach(tag => {  tag.remove() });
+    window.listingEvent.resetInput()
+  }
 
 }
+
+const closeListing = () => {
+
+  console.log('on ferme');
+  const thisOpen = document.querySelector('[data-status="openList"]')
+      
+  if (document.querySelectorAll(".inputList").length > 0) {         
+  this.resetInput()
+  //init.renderListing()
+  }
+
+  if(thisOpen){  
+
+    const childOfOpen = thisOpen.firstElementChild; //#text->input
+    const placeHolder = childOfOpen.dataset.placeholder;
+
+    childOfOpen.setAttribute("placeHolder", placeHolder);
+    thisOpen.setAttribute("data-status", "close");
+
+  }
+}
+
+
+const checkResultKeyWords = (search) => {
+
+
+    let checkSearch  = false
+    init.globalOptions.forEach(O => {
+
+    O.search = search
+    const result  = getData.specificData(O) 
+    
+
+    if(checkSearch === false){
+      if(result.length > 0 ){
+        checkSearch = true
+      }
+    }
+
+
+    });  
+
+    return checkSearch
+
+}
+
 

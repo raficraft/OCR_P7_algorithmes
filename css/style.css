@@ -126,6 +126,14 @@ body {
   background-color: #f7be22;
 }
 
+.color--servings {
+  background-color: #9e0077;
+}
+
+.color--time {
+  background-color: #196e6e;
+}
+
 .elHidden {
   display: none;
 }

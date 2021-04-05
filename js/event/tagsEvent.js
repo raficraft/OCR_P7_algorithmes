@@ -16,12 +16,8 @@ class TagsEvent{
     }
 
     closeParent(parent){
-
         parent.remove()
-        const tagsLength = this.tags.length;
-
         this.redifineRecipe()
-
     }
 
 
@@ -34,10 +30,8 @@ class TagsEvent{
             console.log(this.tags);
 
             const idByTags     = getIdByTags(this.tags)      
-            const uniqueID     = getUniqueID(idByTags)  
-            console.log(uniqueID);     
+            const uniqueID     = getUniqueID(idByTags) 
             const validID      = sortIdInAllArray(idByTags,uniqueID)
-            console.log(validID);
            
 
             if(validID.length > 0){
@@ -52,8 +46,8 @@ class TagsEvent{
                 
                 //On réinitilise le clique dans les nouveaux listing
                 init.options.forEach(O =>{  new ListingEvent(O)  })
-                const delThisValueOnLinsting = target.dataset.value
-                removeTagInListing(delThisValueOnLinsting)
+
+               
     
     
             }else{    
@@ -62,14 +56,7 @@ class TagsEvent{
 
         }else{
             delRecipes()           
-            const init = new Init
+            new Init
         }
-
-     
-
     }
-
-   
-
-
 }

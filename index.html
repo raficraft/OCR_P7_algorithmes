@@ -24,6 +24,7 @@
 
     <script type="text/javascript" src="js/algo/00_init.js" defer></script>
     <script type="text/javascript" src="js/algo/algo2.js" defer></script>
+    <script type="text/javascript" src="js/algo/algo1.js" defer></script>
     
     
     <link rel="preconnect" href="https://fonts.gstatic.com">        
@@ -78,13 +79,33 @@
 
           <!--
             <label id="inputTrigger--name" class="inputTrigger" data-status="close">
-                <input type="text" placeholder="name" class="color--name" data-js="search" data-context="name" 
-                       data-placeholder="name" data-fields="name" data-depth="root">
+                <input type="text" placeholder="Nom de la recette" class="color--name" data-js="search" data-context="name" 
+                data-sugg   data-placeholder="Nom de la recette" data-fields="name" data-depth="root">
                 <i class="fas fa-chevron-down" data-js="openListing" data-context="name"></i>
                 <i class="fas fa-chevron-up elHidden" data-js="closeListing" data-context="name"></i>                             
-            </label>
-          -->
+            </label>  
+            
+            
+            
+            <label id="inputTrigger--time" class="inputTrigger" data-status="close">
+                <input type="text" placeholder="Temps de cuisson" class="color--time"
+                data-js="search" data-context="time" 
+                data-sugg   data-placeholder="Temps de cuisson" data-fields="time" data-depth="root">
+                <i class="fas fa-chevron-down" data-js="openListing" data-context="time"></i>
+                <i class="fas fa-chevron-up elHidden" data-js="closeListing" data-context="time"></i>                             
+            </label>  
 
+
+            <label id="inputTrigger--servings" class="inputTrigger" data-status="close">
+                <input type="text" placeholder="Nombre de personnes" class="color--servings"
+                data-js="search" data-context="servings" 
+                data-sugg   data-placeholder="Nombre de personnes" data-fields="servings" data-depth="root">
+                <i class="fas fa-chevron-down" data-js="openListing" data-context="servings"></i>
+                <i class="fas fa-chevron-up elHidden" data-js="closeListing" data-context="servings"></i>                             
+            </label>  
+            
+          --> 
+            
           
             <label id="inputTrigger--ingredients" class="inputTrigger" data-status="close">
                 <input type="text" placeholder="Ingredients" class="color--ingredients" data-placeholder="Ingredients"
@@ -92,6 +113,8 @@
                 <i class="fas fa-chevron-down" data-js="openListing" data-context="ingredients"></i>
                 <i class="fas fa-chevron-up elHidden" data-js="closeListing" data-context="ingredients"></i>                             
             </label>
+
+            
        
           
             <!-- Input appareil-->  
