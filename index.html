@@ -16,6 +16,7 @@
     <script type="text/javascript" src="js/component/alertMessage.js" defer></script>
 
     <script type="text/javascript" src="js/event/function.js" defer></script>
+    <script type="text/javascript" src="js/event/functionAlgo.js" defer></script>
     <script type="text/javascript" src="js/event/listingEvent.js" defer></script>
     <script type="text/javascript" src="js/event/tagsEvent.js" defer></script>
     
@@ -77,14 +78,13 @@
 
           <!-- Input ingredient-->  
 
-          <!--
+          
             <label id="inputTrigger--name" class="inputTrigger" data-status="close">
                 <input type="text" placeholder="Nom de la recette" class="color--name" data-js="search" data-context="name" 
                 data-sugg   data-placeholder="Nom de la recette" data-fields="name" data-depth="root">
                 <i class="fas fa-chevron-down" data-js="openListing" data-context="name"></i>
                 <i class="fas fa-chevron-up elHidden" data-js="closeListing" data-context="name"></i>                             
-            </label>  
-            
+            </label>              
             
             
             <label id="inputTrigger--time" class="inputTrigger" data-status="close">
@@ -103,11 +103,11 @@
                 <i class="fas fa-chevron-down" data-js="openListing" data-context="servings"></i>
                 <i class="fas fa-chevron-up elHidden" data-js="closeListing" data-context="servings"></i>                             
             </label>  
-            
-          --> 
+
+          
             
           
-            <label id="inputTrigger--ingredients" class="inputTrigger" data-status="close">
+            <label id="inputTrigger--ingredients" class="inputTrigger" data-status="close">              
                 <input type="text" placeholder="Ingredients" class="color--ingredients" data-placeholder="Ingredients"
                 data-sugg  data-js="search" data-context="ingredients" data-fields="ingredient" data-depth="lowerLevel">
                 <i class="fas fa-chevron-down" data-js="openListing" data-context="ingredients"></i>
@@ -141,14 +141,6 @@
     </header>
 
     <main id="main" class="main"></main>
-
-  
-    <span class="repere--X repere__1--X"></span>
-    <span class="repere--X repere__2--X"></span>
-
-    <span class="repere--Y repere__1--Y"></span>
-    <span class="repere--Y repere__2--Y"></span>
-    <span class="repere--Y repere__3--Y"></span>
 
   </body>
 

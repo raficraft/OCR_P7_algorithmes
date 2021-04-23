@@ -1,161 +1,7 @@
 
-const sortSuggestion = (thisData) => {
-  
-
-  let result =[]
-  thisData.forEach((el) => {
-    if (!result.includes(el.value)) {
-      result.push(el.value);
-    }
-  });
-
-  return result
-
-}
-
-const idByGlobalSearch = (keyWords)=>{
-
-  const idByGlobal = []
-  
-  const keyWordsArray = keyWords.split(' ') 
-
-    keyWordsArray.forEach(search => {
-
-      // Verifie en amont si le mot clef Demandé renvoie
-      // au moins des resultat non null dans une des champs de
-      // recherche [name, ingredients, description]
-      const validSearch = checkResultKeyWords(search)
-
-      init.globalOptions.forEach(O => {
-
-        O.search = search
-        const result  = getData.specificData(O)  
-
-        if(validSearch === true){
-
-          idByGlobal.push(result); 
-
-        }else{
-
-          //On supprime le mot clef qui ne renvoie pas de résultat, du champ de recherche  
-          thisInput = document.querySelector('.search input')
-          const str = thisInput.value
-          thisInput.value = str.replace(`${search}` , '')
-
-        }
-
-      });  
-
-    });
-
-  console.log(idByGlobal);
-  return idByGlobal
-
-}
-
-const getIdByTags = (tags) =>{
-
-  const idByTags = []
-
-  if(document.querySelector('.search input').value !==''){
-    idByTags.push(idByGlobalSearch(document.querySelector('.search input').value))
-  }
-
-  tags.forEach((tag)=>{
-
-      const options = tag.dataset
-      options.search = tag.dataset.value
-      idByTags.push(getData.specificData(options))
-  })
-
-  return idByTags
-
-}
-
-const getIdBykeyWord = (target) => {
-
-          
-  let idBykeywords = []
-
-  let allElems = []
-  allElems.push(target)
-
-
-  const tags = document.querySelectorAll(".filterResult [data-tag]");
-
-
-  if (tags.length > 0) {  tags.forEach((el) => allElems.push(el)); }
-
-  allElems.forEach((els) => {
-
-      const options = els.dataset;
-      options.search = els.dataset.value;
-      idBykeywords.push(getData.specificData(options))
-
-  });
-
-
-  /***/
-
-  console.log(idBykeywords);
- return idBykeywords
-}
-
-const getUniqueID = (thisData) =>{
-
-  comparaisonChart = []
-
-  thisData.forEach((data) => {
-    data.forEach((value) => {
-      if (!comparaisonChart.includes(value.idRecipe)) {
-          comparaisonChart.push(value.idRecipe);
-      }
-    });
-  });
-
-  return comparaisonChart
-
-}
-
-const sortIdInAllArray = (idByKeyWords,comparaisonChart)=>{
-
-  const sortId = (
-    idByKeyWords,
-    limit,
-    count,
-    comparaisonChart,
-    idValid = []
-  ) => {
-
-    idByKeyWords[count].forEach((el) => {
-      comparaisonChart.forEach((idControl) => {
-        if (el.idRecipe === idControl) {
-          if (!idValid.toString().includes(el.idRecipe.toString())) {
-            idValid.push(el.idRecipe);
-          }
-        }
-      });
-    });
-
-    count++;
-    if (count === limit) {
-      return idValid;
-    } else if (count < limit) {
-      comparaisonChart = idValid;
-      return sortId(idByKeyWords, limit, count, comparaisonChart);
-      //return sortId(idByKeyWords, limit, count, idValid); ???
-    }
-  };
-
-  const limit = idByKeyWords.length
-  let IDresult = sortId(idByKeyWords,limit,0,comparaisonChart)
-
-  return IDresult
-}
-
 const delRecipes = ()=>{
 
-  console.error('reset des recettes');
+  //console.error('reset des recettes');
   
   if (document.querySelectorAll(".sticker").length > 0) {
       let removethis = document.querySelectorAll(".sticker");
@@ -167,7 +13,7 @@ const delRecipes = ()=>{
 
 const showRecipesByID = (recipes) => {
 
-  console.error(recipes.length);
+  //console.error(recipes.length);
   showMessage('info',`${recipes.length} résultats trouvés`) 
   const recipesComponent = makeComponent(new createRecipe(recipes));  
   const targetRenderRecipes = document.querySelector("#main");  
@@ -187,7 +33,7 @@ const showValidTags = tagsValid =>{
 const delTags = target => {
 
   target.remove()
-  console.log('del');
+  //console.log('del');
 
 }
 
@@ -213,7 +59,7 @@ const  majListing = (recipesByID) =>{
                });
               
                 //On réinitilise le clique dans le nouveau listing
-                console.log(newListing);
+                //console.log(newListing);
                 showNewListing(req,newListing)
 
             break;
@@ -239,8 +85,8 @@ const  majListing = (recipesByID) =>{
 
 const showNewListing = (req,newListing) => {
 
-  console.log(req.context);  
-  console.log(newListing);
+  //console.log(req.context);  
+  //console.log(newListing);
 
   let targetLabel = document.querySelector(`#inputTrigger--${req.context}`);
   thisListing = makeComponent(new createListing(newListing, req));
@@ -287,7 +133,7 @@ const removeAllTags = () => {
 
 const closeListing = () => {
 
-  console.log('on ferme');
+  //console.log('on ferme');
   const thisOpen = document.querySelector('[data-status="openList"]')
       
   if (document.querySelectorAll(".inputList").length > 0) {         
@@ -307,27 +153,6 @@ const closeListing = () => {
 }
 
 
-const checkResultKeyWords = (search) => {
 
-
-    let checkSearch  = false
-    init.globalOptions.forEach(O => {
-
-    O.search = search
-    const result  = getData.specificData(O) 
-    
-
-    if(checkSearch === false){
-      if(result.length > 0 ){
-        checkSearch = true
-      }
-    }
-
-
-    });  
-
-    return checkSearch
-
-}
 
 

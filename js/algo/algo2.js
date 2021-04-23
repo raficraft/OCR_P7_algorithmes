@@ -5,8 +5,13 @@ class GlobalSearch{
         this.input = document.querySelector('.search input')
         this.resultRecipes = dataJSON
 
-        this.input.addEventListener('keyup',debounce((e)=>{
 
+        /**
+         * L'événement utilise une fonction debounce pour limiter
+         * le nombre d'apelle à l'API
+         */
+
+        this.input.addEventListener('keyup',debounce((e)=>{
 
             console.error(e.target.value);
 
@@ -39,14 +44,13 @@ class GlobalSearch{
 
     request(keyWords){
 
-        keyWords = keyWords.trim().replace(/  +/g, ' ') //vire tous les espaces comprit dans la chaîne de caractères      
-        const idByGlobal = idByGlobalSearch(keyWords)
+        const keyWordsArray = keyWords.trim().replace(/  +/g, ' ').split(' ') //vire tous les espaces comprit dans la chaîne de caractères      
+        const idByGlobal = idByGlobalSearch(keyWordsArray)
         const uniqueID = getUniqueID(idByGlobal) 
         
         if(uniqueID.length > 0){
 
-            const recipesByID  =  getData.getRecipeByID(uniqueID);
-            this.resultRecipes  = recipesByID
+            const recipesByID  =  getData.getRecipeByID(uniqueID);            
             delRecipes() 
             showRecipesByID(recipesByID)                
             //MAJLISITNG + suppr TArget                
@@ -63,13 +67,14 @@ class GlobalSearch{
                 removeTagInListing(delThis) 
             });
 
+            this.resultRecipes  = recipesByID
+
             //redifinie le tableau des recettes dans laquelle la recherche s'effectue
             getData.JSON = recipesByID 
 
         }else{    
             showMessage('error','Aucun résultat')    
         }
-
        
     }
 }

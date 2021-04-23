@@ -136,14 +136,9 @@ class ListingEvent{
             this.rootElement.dataset.status = 'openList'
         }
 
-        console.log(target);
-
         const idByKeywords = getIdBykeyWord(target)
-       // console.log(idByKeywords);
         const uniqueID     = getUniqueID(idByKeywords)  
-       // console.log(uniqueID);     
         const validID      = sortIdInAllArray(idByKeywords,uniqueID)
-       // console.log(validID);
 
         if(validID.length > 0){
 
@@ -151,8 +146,8 @@ class ListingEvent{
             delRecipes() 
             showRecipesByID(recipesByID)
             
-            //MAJLISITNG + suppr TArget
-            
+            //MAJLISITNG + suppr l'élement cliqué du listing
+
             majListing(recipesByID)
             
             //On réinitilise le clique dans les nouveaux listing
@@ -164,14 +159,11 @@ class ListingEvent{
 
             new TagsEvent()
 
-            console.log(validID.length);
             if(validID.length === 1){
 
-                console.log('uneSeule');
 
                 init.options.forEach(O => {
-                this.listing = document.querySelector(`#inputList--${O.context}`) 
-                console.log(this.listing);            
+                this.listing = document.querySelector(`#inputList--${O.context}`)           
                 this.listing.remove()
                 });
 

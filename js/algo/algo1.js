@@ -10,25 +10,68 @@ const algoBasique = (keyWords)=>{
       ]  
 
     //nettoyage de la chaine de caractère passé en params
-    keyWords = keyWords.trim().replace(/  +/g, ' ').split(' ')
+    keyWords = keyWords.trim().replace(/  +/g, ' ').split(' ')    
+
+    
+    const idByGlobal = []  
 
 
-    keyWords.forEach(keyword => {
+    // GetIdResult
+    
+    keyWords.forEach(search => {
+  
+        // Verifie en amont si le mot clef Demandé renvoie
+        // au moins des resultat non null dans un des champs de
+        // recherche [name, ingredients, description]
+        const validSearch = checkResultKeyWords(search)
+  
+        request.forEach(O => {
+  
+          O.search = search
+          const result  = getData.specificData(O) 
+  
+            if(validSearch === true){
 
-        request.forEach(req => {
+                if(result.length > 0){
+    
+                    idByGlobal.push(result); 
 
-            req.search = keyword
-            console.log(req);
+                }else{
+                    console.log(`Dans le champ de recherche "${O.context}"  aucun résultat pour le mot clef "${O.search}"`);
+                }
+    
+            }else{
+                console.log(`ce mot clef "${search}" à été exclue de la recherche`);
+            }
+        
+  
+        });  
+  
+      });
 
 
-            
-        });        
-    });
+    console.log(idByGlobal);
 
+    //GetUniqueID
 
+    comparaisonChart = []
 
+    idByGlobal.forEach(data =>{
+        data.forEach((value) => {
+            if (!comparaisonChart.includes(value.idRecipe)) {
+                comparaisonChart.push(value.idRecipe);
+            }
+        });
+    })
 
+    console.log(comparaisonChart);
 
+    const recipesByID  =  getData.getRecipeByID(comparaisonChart);  
 
+    console.log(recipesByID);
+
+ 
 }
-//algoBasique('tomate ail             blender')
+
+
+algoBasique('tomate ail  lolololol')

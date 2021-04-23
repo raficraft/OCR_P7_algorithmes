@@ -40,6 +40,7 @@ class Init{
       //qui affiche toutes les recettes
       this.options = this.getOption() 
       this.dataType = this.getAllType()  // Listing Complet des ingrédients // appliance et ustensils 
+      console.log(this.dataType);
       this.recipes = dataJSON 
 
 
@@ -84,10 +85,11 @@ class Init{
             dataGlobal[O.context] = (getData.allDataType(O))
         })
         const allData =  Object.assign({}, dataType, dataGlobal);
-        console.log(allData); 
+
         return allData
 
     }
+  
 
 
     renderListing(){
