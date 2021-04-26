@@ -144,7 +144,7 @@ const toggleAttribute = (element,attributes,oldAttr,newAttr) =>{
 
 
 /*Empeche la function passé en callBack 
-  de se déclenché à chaque event dans un certain.
+  de se déclenché à chaque event dans un certain délai.
    Elle ne ce déclenchera que si le délay passé et 
    supérieur entre deux event de même nature
 */
@@ -162,7 +162,7 @@ debounce = (callback, delay) => {
 }
 
 
-/*Limite le nombre d'appel à une fonction à laps de temps restreint*/
+/*Limite le nombre d'appel à une fonction dans un laps de temps restreint*/
 function throttle(callback, delay) {
   let last;
   let timer;

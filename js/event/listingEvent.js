@@ -136,10 +136,16 @@ class ListingEvent{
             this.rootElement.dataset.status = 'openList'
         }
 
+        /*Algorithme*/
+        var t0 = performance.now();
         const idByKeywords = getIdBykeyWord(target)
         const uniqueID     = getUniqueID(idByKeywords)  
         const validID      = sortIdInAllArray(idByKeywords,uniqueID)
+        var t1 = performance.now();
+        console.log("L'appel de doSomething a demandé " + (t1 - t0) + " millisecondes.")
+        
 
+        /*Traitements de l'affichage*/
         if(validID.length > 0){
 
             const recipesByID  =  getData.getRecipeByID(validID); 

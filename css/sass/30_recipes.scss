@@ -8,7 +8,6 @@
     position: relative;
 }
 
-
 .sticker{
     display : flex;
     flex-direction: column;
@@ -19,7 +18,7 @@
     opacity: 0;
 
     animation: soft_show_from_down;
-    animation-duration: 2s;
+    animation-duration: 0.3s;
     animation-fill-mode: forwards; 
     transform: translateY(100px);
     

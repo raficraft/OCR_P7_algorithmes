@@ -4,8 +4,6 @@ class GlobalSearch{
             
         this.input = document.querySelector('.search input')
         this.resultRecipes = dataJSON
-
-
         /**
          * L'événement utilise une fonction debounce pour limiter
          * le nombre d'apelle à l'API
@@ -14,7 +12,6 @@ class GlobalSearch{
         this.input.addEventListener('keyup',debounce((e)=>{
 
             console.error(e.target.value);
-
 
             if(e.target.value.match(/^[a-zA-Z\d\-\s]+$/) && e.key!==' '){
 
@@ -44,38 +41,48 @@ class GlobalSearch{
 
     request(keyWords){
 
-        const keyWordsArray = keyWords.trim().replace(/  +/g, ' ').split(' ') //vire tous les espaces comprit dans la chaîne de caractères      
+         /*Algorithme*/
+         const keyWordsArray = keyWords.trim().replace(/  +/g, ' ').split(' ') //vire tous les espaces comprit dans la chaîne de caractères      
+       
         const idByGlobal = idByGlobalSearch(keyWordsArray)
         const uniqueID = getUniqueID(idByGlobal) 
-        
+
         if(uniqueID.length > 0){
 
-            const recipesByID  =  getData.getRecipeByID(uniqueID);            
-            delRecipes() 
-            showRecipesByID(recipesByID)                
-            //MAJLISITNG + suppr TArget                
-            majListing(recipesByID)                
-            //On réinitilise le clique dans les nouveaux listing
-            init.options.forEach(O =>{                 
-                window.listingEvent =   new ListingEvent(O)              
-            })     
-            
-            // Supprime les mots clefs qui matchent dans les listing
-            const keyWordsArray = keyWords.split(' ')            
-            keyWordsArray.forEach(delThis => {
-                console.log(delThis);
-                removeTagInListing(delThis) 
-            });
-
-            this.resultRecipes  = recipesByID
-
-            //redifinie le tableau des recettes dans laquelle la recherche s'effectue
-            getData.JSON = recipesByID 
+            const recipesByID  =  getData.getRecipeByID(uniqueID); 
+            this.showResult(recipesByID)
+            this.cleanListing(keyWords)
 
         }else{    
-            showMessage('error','Aucun résultat')    
-        }
-       
+            showMessage('error','Aucun résultat')
+              
+        }       
+    }
+
+    showResult(resultByID){
+
+        delRecipes() 
+        showRecipesByID(resultByID)                
+        //MAJLISITNG + suppr TArget                
+        majListing(resultByID)                
+        //On réinitilise le clique dans les nouveaux listing
+        init.options.forEach(O =>{                 
+            window.listingEvent =   new ListingEvent(O)              
+        })  
+
+        this.resultRecipes  = resultByID
+        //redifinie le tableau des recettes dans laquelle la recherche s'effectue
+        getData.JSON = resultByID 
+
+    }
+
+    cleanListing(keyWords){
+         // Supprime les mots clefs qui matchent dans les listing
+         const keyWordsArray = keyWords.split(' ')            
+         keyWordsArray.forEach(delThis => {
+             console.log(delThis);
+             removeTagInListing(delThis) 
+         });
     }
 }
 
