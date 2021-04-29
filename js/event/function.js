@@ -26,20 +26,15 @@ const showValidTags = tagsValid =>{
   const thisTags = makeComponent(new createTags(tagsValid.dataset));
   renderComponent(thisTags, showTarget); 
 
-
-
 }
 
 const delTags = target => {
 
   target.remove()
   //console.log('del');
-
 }
 
 const  majListing = (recipesByID) =>{
-
-  
 
       init.options.forEach((req) => {
        

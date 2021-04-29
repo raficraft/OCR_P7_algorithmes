@@ -44,7 +44,7 @@ class GetData{
 
             case 'root':
                 this.JSON.forEach((recipe) => {  
-                    if(normalizeString(recipe[options.fields]).includes(normalizeString(options.search))){
+                    if(recipe[options.fields].includes(options.search)){
                        result.push({
                          idRecipe: recipe.id,
                          value: recipe[options.fields],
@@ -68,7 +68,7 @@ class GetData{
         
                         if(options.fields !== options.context){ el = el[options.fields]}
                         
-                        if(normalizeString(el).includes(normalizeString(options.search))){ 
+                        if(el.includes(options.search)){ 
                             result.push({
                             idRecipe: recipe.id,
                             value: el,

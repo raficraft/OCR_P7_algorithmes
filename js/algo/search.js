@@ -72,7 +72,7 @@ class GlobalSearch{
 
         this.resultRecipes  = resultByID
         //redifinie le tableau des recettes dans laquelle la recherche s'effectue
-        getData.JSON = resultByID 
+        getData.JSON = init.normalizeJSON(resultByID)
 
     }
 

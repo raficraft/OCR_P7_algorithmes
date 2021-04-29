@@ -5,9 +5,29 @@
  const normalizeString = (str) =>{
 
     return str
+        .toString()
         .toLowerCase()
         .normalize("NFD")
         .replace(/[\u0300-\u036f]/g, "");
+}
+
+
+/*Empeche la function passé en callBack 
+  de se déclenché à chaque event dans un certain délai.
+   Elle ne ce déclenchera que si le délay passé et 
+   supérieur entre deux event de même nature
+*/
+
+debounce = (callback, delay) => {
+    let timer;
+    return function(){
+        let args = arguments;
+        let context = this;
+        clearTimeout(timer);
+        timer = setTimeout(function(){
+            callback.apply(context, args);
+        }, delay)
+    }
 }
 
 class Init{
@@ -15,12 +35,103 @@ class Init{
     constructor(){
       //On passe le JSON dans l'atelier pour obtenir le Bloc HTML
       //qui affiche toutes les recettes
-      this.recipes = dataJSON 
+      this.recipes = this.normalizeJSON(dataJSON)
       this.globalOptions = [
         {context : 'name', fields : 'name' , depth : 'root' },
         {context : 'ingredients', fields : 'ingredient' , depth : 'lowerLevel' },
         {context : 'description', fields : 'description' , depth : 'root' }
-      ]       
+      ]          
+    }
+
+    /**
+     * Vire Tout les accents présent dans les champs de type string du fichier Json
+     * @param {*} JSON 
+     * @returns newJson
+     */
+
+    normalizeJSON(JSON){
+
+      // console.log(JSON);
+
+        const newJSON = []
+
+        JSON.forEach((recipe,key) => {
+
+        //  console.log(recipe);
+            const thisKey = Object.keys(recipe)
+            newJSON[key] = {}
+           
+
+            thisKey.forEach(fields => {
+                
+                
+               // console.log(typeof(recipe[fields]));
+
+                switch(typeof(recipe[fields])){
+
+                    case 'string': 
+
+                    newJSON[key][fields] = normalizeString(recipe[fields])                  
+                    
+                    break
+                    case 'number':
+                    newJSON[key][fields] = recipe[fields]
+                    break
+                    case 'object': 
+
+                    newJSON[key][fields] = []
+
+                    recipe[fields].forEach(lowerLevel => {
+
+                        switch(typeof(lowerLevel)){
+
+                            case 'string':
+
+                            newJSON[key][fields].push(normalizeString(lowerLevel))
+                                
+                            break;
+                            case 'object': 
+
+                            const newEntries = {}
+
+                            const lowerLevelKeys = Object.keys(lowerLevel)
+                            lowerLevelKeys.forEach(thisKeys => {
+                                
+                               // console.log(thisKeys);
+                               // console.log(lowerLevel[thisKeys]);
+                               newEntries[thisKeys] = normalizeString(lowerLevel[thisKeys])
+
+                               /* switch(lowerLevel[thisKeys]){
+                                    case 'string': 
+
+                                    newEntries[thisKeys] = normalizeString(lowerLevel[thisKeys])
+                                    
+                                    break
+                                    case 'number': 
+                                    newEntries[thisKeys] = lowerLevel[thisKeys]
+                                    break
+
+                                }*/
+
+                            });
+
+                            newJSON[key][fields].push(newEntries)
+                            
+                            //console.log(newEntries);
+                            
+                            break;
+                        }
+                        
+                    });
+                     
+                    break
+                }
+            });
+
+            
+        });
+        
+        return newJSON
     }
 }
 
@@ -31,6 +142,7 @@ const init = new Init()
 class GetData{
 
     constructor(){
+        console.log(init.recipes);
         this.JSON = init.recipes; // Si fetch {new getJSON(dataJSON)} 
     }
 
@@ -70,10 +182,9 @@ class GetData{
         let result = []
         switch(options.depth){
 
-            case 'root':         
-                
+            case 'root':
                 this.JSON.forEach((recipe) => {  
-                    if(normalizeString(recipe[options.fields]).includes(options.search)){
+                    if(recipe[options.fields].includes(options.search)){
                        result.push({
                          idRecipe: recipe.id,
                          value: recipe[options.fields],
@@ -83,7 +194,9 @@ class GetData{
                          search: options.search,
                        });
                     }
-                }) 
+                })  
+
+                
             break;
 
             case 'lowerLevel': 
@@ -95,7 +208,7 @@ class GetData{
         
                         if(options.fields !== options.context){ el = el[options.fields]}
                         
-                        if(normalizeString(el).includes(options.search)){ 
+                        if(el.includes(options.search)){ 
                             result.push({
                             idRecipe: recipe.id,
                             value: el,
@@ -105,8 +218,9 @@ class GetData{
                             search: options.search,
                             });
                         }
-                    })
-                })
+                    })             
+                })    
+
             break;
         }
         return result
@@ -177,20 +291,33 @@ const getUniqueID = (thisData) =>{
 }    
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 const algoBasique = (keyWords)=>{
 
     //Nettoyage de tous les espaces comprit dans la chaîne de caractères 
     const keyWordsArray = keyWords.trim().replace(/  +/g, ' ').split(' ')        
     const idByGlobal = idByGlobalSearch(keyWordsArray)
     const uniqueID = getUniqueID(idByGlobal) 
-    const finalResult  =  getData.getRecipeByID(uniqueID);  
-
-    //console.log(finalResult);
+    return  getData.getRecipeByID(uniqueID);  
+  
 }
 
 
-console.time("pouet pouet")
-for(let i = 0; i < 2000; i++){
-algoBasique('creme')
-}
-console.timeEnd("pouet pouet")

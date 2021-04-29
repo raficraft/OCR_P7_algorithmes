@@ -193,6 +193,7 @@ const checkResultKeyWords = (search) => {
       idByKeyWords[count].forEach((el) => {
         comparaisonChart.forEach((idControl) => {
           if (el.idRecipe === idControl) {
+            console.log(el);
             if (!idValid.toString().includes(el.idRecipe.toString())) {
               idValid.push(el.idRecipe);
             }
