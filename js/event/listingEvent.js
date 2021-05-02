@@ -130,7 +130,6 @@ class ListingEvent{
 
     getTag(target){ 
         
-        console.error(globalSearch.resultRecipes);
         
         if(this.rootElement.dataset.status !== 'openList'){
             this.rootElement.dataset.status = 'openList'

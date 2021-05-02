@@ -3,7 +3,6 @@
  * @returns Une chaine de caratère standart
  */
  const normalizeString = (str) =>{
-
     return str
         .toString()
         .toLowerCase()
@@ -36,11 +35,13 @@ class Init{
       //On passe le JSON dans l'atelier pour obtenir le Bloc HTML
       //qui affiche toutes les recettes
       this.recipes = this.normalizeJSON(dataJSON)
+
       this.globalOptions = [
         {context : 'name', fields : 'name' , depth : 'root' },
         {context : 'ingredients', fields : 'ingredient' , depth : 'lowerLevel' },
         {context : 'description', fields : 'description' , depth : 'root' }
-      ]          
+      
+    ]          
     }
 
     /**
@@ -97,27 +98,13 @@ class Init{
                             const lowerLevelKeys = Object.keys(lowerLevel)
                             lowerLevelKeys.forEach(thisKeys => {
                                 
-                               // console.log(thisKeys);
-                               // console.log(lowerLevel[thisKeys]);
                                newEntries[thisKeys] = normalizeString(lowerLevel[thisKeys])
-
-                               /* switch(lowerLevel[thisKeys]){
-                                    case 'string': 
-
-                                    newEntries[thisKeys] = normalizeString(lowerLevel[thisKeys])
-                                    
-                                    break
-                                    case 'number': 
-                                    newEntries[thisKeys] = lowerLevel[thisKeys]
-                                    break
-
-                                }*/
+                         
 
                             });
 
                             newJSON[key][fields].push(newEntries)
                             
-                            //console.log(newEntries);
                             
                             break;
                         }
@@ -226,6 +213,68 @@ class GetData{
         return result
     }
 
+
+    globalData(keywords){
+
+
+        const result = []
+
+        keywords.forEach(keyword => {
+
+            this.JSON.forEach(recipe=>{
+
+
+                if(recipe.name || recipe.description){
+
+                    let context = ''
+
+                    if(recipe.name){
+                         context = 'name'
+                    }else if(recipe.description){
+                        context = 'description'
+                    }
+
+                    if(recipe.name.includes(keyword) || recipe.description.includes(keyword)){
+                        result.push({
+                           recipeId : recipe.id,
+                           value : recipe[context],
+                           context : context,
+                           fields : context,
+                           depth : 'root',
+                           search : keyword
+                        })
+                    }
+                }
+                
+                
+                if(recipe.ingredients){
+
+                    recipe.ingredients.forEach(ing => {
+
+
+                        if(ing.ingredient.includes(keyword)){
+                            result.push({
+                                recipeId : recipe.id,
+                                value : ing.ingredient,
+                                context : 'ingredients',
+                                fields : 'ingredient',
+                                depth : 'lowerlevel',
+                                search : keyword
+                            })
+                        }
+                        
+                    });
+                }
+
+            })
+            
+        });
+
+
+        return result
+
+    }
+
     getRecipeByID(data){
         let result = []
         data.forEach((el)=>{           
@@ -289,23 +338,6 @@ const getUniqueID = (thisData) =>{
     //console.log(comparaisonChart);
     return comparaisonChart
 }    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

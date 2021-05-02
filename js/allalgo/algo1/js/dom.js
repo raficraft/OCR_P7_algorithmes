@@ -14,7 +14,7 @@ class GetResult{
     findResult(){
 
         const keyWords = this.inputSearch.value
-        const operations = 2000        
+        const operations = 26000   
 
         const t0 = performance.now();
         for(let i = 0; i < operations; i++){

@@ -14,7 +14,6 @@ class Init{
       this.dictionnaryFields = [
         {context : 'name', fields : 'name' , depth : 'root' },
         {context : 'ingredients', fields : 'ingredient' , depth : 'lowerLevel' },
-        {context : 'description', fields : 'description' , depth : 'root' },
         {context : 'appliance', fields : 'appliance' , depth : 'root' },
         {context : 'ustensils', fields : 'ustensils' , depth : 'lowerlevel' },
       ] 
@@ -37,7 +36,7 @@ class Init{
             const recipesKeys = Object.keys(recipe)
 
             recipesKeys.forEach(key =>{
-                if(key !== 'description'){
+                if(key === 'name' || key === 'ingredients' || key === 'appliance' || key === ''){
                     if(typeof(recipe[key]) !== 'object'){
                     
                     if(!dictionnary.includes(recipe[key])){

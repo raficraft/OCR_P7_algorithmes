@@ -35,7 +35,8 @@ class Init{
       //qui affiche toutes les recettes
       this.options = this.getOption() 
       this.dataType = this.getAllType()  // Listing Complet des ingrédients // appliance et ustensils   
-      this.recipes = this.normalizeJSON(dataJSON)
+      this.recipes = dataJSON
+
       this.globalOptions = [
         {context : 'name', fields : 'name' , depth : 'root' },
         {context : 'ingredients', fields : 'ingredient' , depth : 'lowerLevel' },
@@ -47,90 +48,6 @@ class Init{
       this.renderRecipes()
     }
     
-    normalizeJSON(JSON){
-
-        // console.log(JSON);
-  
-          const newJSON = []
-  
-          JSON.forEach((recipe,key) => {
-  
-          //  console.log(recipe);
-              const thisKey = Object.keys(recipe)
-              newJSON[key] = {}
-             
-  
-              thisKey.forEach(fields => {
-                  
-                  
-                 // console.log(typeof(recipe[fields]));
-  
-                  switch(typeof(recipe[fields])){
-  
-                      case 'string': 
-  
-                      newJSON[key][fields] = normalizeString(recipe[fields])                  
-                      
-                      break
-                      case 'number':
-                      newJSON[key][fields] = recipe[fields]
-                      break
-                      case 'object': 
-  
-                      newJSON[key][fields] = []
-  
-                      recipe[fields].forEach(lowerLevel => {
-  
-                          switch(typeof(lowerLevel)){
-  
-                              case 'string':
-  
-                              newJSON[key][fields].push(normalizeString(lowerLevel))
-                                  
-                              break;
-                              case 'object': 
-  
-                              const newEntries = {}
-  
-                              const lowerLevelKeys = Object.keys(lowerLevel)
-                              lowerLevelKeys.forEach(thisKeys => {
-                                  
-                                 // console.log(thisKeys);
-                                 // console.log(lowerLevel[thisKeys]);
-                                 newEntries[thisKeys] = normalizeString(lowerLevel[thisKeys])
-  
-                                 /* switch(lowerLevel[thisKeys]){
-                                      case 'string': 
-  
-                                      newEntries[thisKeys] = normalizeString(lowerLevel[thisKeys])
-                                      
-                                      break
-                                      case 'number': 
-                                      newEntries[thisKeys] = lowerLevel[thisKeys]
-                                      break
-  
-                                  }*/
-  
-                              });
-  
-                              newJSON[key][fields].push(newEntries)
-                              
-                              //console.log(newEntries);
-                              
-                              break;
-                          }
-                          
-                      });
-                       
-                      break
-                  }
-              });
-  
-              
-          });
-          
-          return newJSON
-    }
 
     getOption(){
        const allSug = document.querySelectorAll('[data-sugg]')

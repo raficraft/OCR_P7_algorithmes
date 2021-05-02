@@ -11,11 +11,8 @@ class GlobalSearch{
 
         this.input.addEventListener('keyup',debounce((e)=>{
 
-            console.error(e.target.value);
 
-            if(e.target.value.match(/^[a-zA-Z\d\-\s]+$/) && e.key!==' '){
-
-                console.log(e.target.value);
+            if(e.target.value.match(/^[A-Za-zÀ-ÿ\d\-\s]+$/) && e.key !==' '){
 
                 if(e.target.value.length > 2){
                 getData.JSON = dataJSON
@@ -23,7 +20,7 @@ class GlobalSearch{
                 this.request(e.target.value)
                 }
 
-            }else if (!e.target.value.match(/^[a-zA-Z\d\-\s]+$/) && e.target.value !== ""){
+            }else if (!e.target.value.match(/^[A-Za-zÀ-ÿ\d\-\s]+$/) && e.target.value !== ""){
 
                 showMessage(
                     'error',
@@ -41,12 +38,16 @@ class GlobalSearch{
 
     request(keyWords){
 
+        console.log(keyWords);
          /*Algorithme*/
-         const keyWordsArray = keyWords.trim().replace(/  +/g, ' ').split(' ') //vire tous les espaces comprit dans la chaîne de caractères      
-       
+        var t0 = performance.now();
+        getData.jsonData = alterate.normalizeData
+        const keyWordsArray = keyWords.trim().replace(/  +/g, ' ').split(' ') //vire tous les espaces comprit dans la chaîne de caractères  
         const idByGlobal = idByGlobalSearch(keyWordsArray)
-        const uniqueID = getUniqueID(idByGlobal) 
-
+        const uniqueID = getUniqueID(idByGlobal)
+        var t1 = performance.now();
+        console.log("L'appel de doSomething a demandé " + (t1 - t0) + " millisecondes.") 
+        
         if(uniqueID.length > 0){
 
             const recipesByID  =  getData.getRecipeByID(uniqueID); 
@@ -72,7 +73,9 @@ class GlobalSearch{
 
         this.resultRecipes  = resultByID
         //redifinie le tableau des recettes dans laquelle la recherche s'effectue
-        getData.JSON = init.normalizeJSON(resultByID)
+        getData.jsonData = alterate.recipes = resultByID
+
+        
 
     }
 
@@ -80,7 +83,6 @@ class GlobalSearch{
          // Supprime les mots clefs qui matchent dans les listing
          const keyWordsArray = keyWords.split(' ')            
          keyWordsArray.forEach(delThis => {
-             console.log(delThis);
              removeTagInListing(delThis) 
          });
     }

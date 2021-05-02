@@ -1,12 +1,10 @@
 const checkResultKeyWords = (search) => {
 
-
   let checkSearch  = false
   init.globalOptions.forEach(O => {
 
   O.search = search
   const result  = getData.specificData(O) 
-  
 
   if(checkSearch === false){
     if(result.length > 0 ){
@@ -15,7 +13,6 @@ const checkResultKeyWords = (search) => {
   }
   });  
   return checkSearch
-
 }
 
 
@@ -39,6 +36,12 @@ const checkResultKeyWords = (search) => {
   
     return result
   }
+
+
+  getIdByHashJson = (keyWords) => {
+
+  }
+
   
   /**
    * Recheche les ID des recettes par mots clef
@@ -49,7 +52,7 @@ const checkResultKeyWords = (search) => {
    * @returns {array} 
    */
   
-  const idByGlobalSearch = (keyWords)=>{
+  const idByGlobalSearch = (keyWords) => {
   
     const idByGlobal = []  
   
@@ -58,11 +61,11 @@ const checkResultKeyWords = (search) => {
         // Verifie en amont si le mot clef Demandé renvoie
         // au moins des resultat non null dans un des champs de
         // recherche [name, ingredients, description]
-        const validSearch = checkResultKeyWords(search)
+        const validSearch = checkResultKeyWords(normalizeString(search))
   
         init.globalOptions.forEach(O => {
   
-          O.search = search
+          O.search = normalizeString(search)
           const result  = getData.specificData(O)  
   
           if(validSearch === true){
@@ -82,7 +85,6 @@ const checkResultKeyWords = (search) => {
   
       });
 
-    //console.log(idByGlobal);
     return idByGlobal
   
   }
@@ -93,7 +95,7 @@ const checkResultKeyWords = (search) => {
    * @returns 
    */
   
-  const getIdByTags = (tags) =>{
+  const getIdByTags = (tags) => {
   
     const idByTags = []
   
@@ -120,8 +122,6 @@ const checkResultKeyWords = (search) => {
    */
   
   const getIdBykeyWord = (target) => {
-  
-   // console.log(target);
             
     let idBykeywords = []
   
@@ -153,7 +153,7 @@ const checkResultKeyWords = (search) => {
    * @returns 
    */
   
-  const getUniqueID = (thisData) =>{  
+  const getUniqueID = (thisData) => {  
 
     comparaisonChart = []
   
@@ -164,9 +164,7 @@ const checkResultKeyWords = (search) => {
         }
       });
     });
-    //console.log(comparaisonChart);
-    return comparaisonChart
-  
+    return comparaisonChart  
   }
   
   /**
@@ -180,7 +178,7 @@ const checkResultKeyWords = (search) => {
    * @returns 
    */
   
-  const sortIdInAllArray = (idByKeyWords,comparaisonChart)=>{
+  const sortIdInAllArray = (idByKeyWords,comparaisonChart) => {
   
     const sortId = (
       idByKeyWords,
@@ -193,7 +191,6 @@ const checkResultKeyWords = (search) => {
       idByKeyWords[count].forEach((el) => {
         comparaisonChart.forEach((idControl) => {
           if (el.idRecipe === idControl) {
-            console.log(el);
             if (!idValid.toString().includes(el.idRecipe.toString())) {
               idValid.push(el.idRecipe);
             }

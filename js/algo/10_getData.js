@@ -1,9 +1,10 @@
 class GetData{
 
     constructor(){
-        this.JSON = dataJSON; // Si fetch {new getJSON(dataJSON)} 
-        console.log(this.JSON);
+        this.jsonData = alterate.recipes; // Si fetch {new getJSON(dataJSON)} 
     }
+
+
 
     allDataType(options){
 
@@ -12,7 +13,7 @@ class GetData{
 
             case 'root':
 
-                this.JSON.forEach(recipe => {
+                this.jsonData.forEach(recipe => {
                     if(!result.includes(recipe[options.fields])){
                         result.push(recipe[options.fields])
                     }           
@@ -22,7 +23,7 @@ class GetData{
 
             case 'lowerLevel':             
             
-            this.JSON.forEach(recipe => {
+            this.jsonData.forEach(recipe => {
     
                 recipe[options.context].forEach(el => {                
     
@@ -37,13 +38,23 @@ class GetData{
         return result
     }
 
+    searchInHashJson(options){
+
+        
+
+
+    }
+
 
     specificData(options){
+
+        console.log(options.search);
+
         let result = []
         switch(options.depth){
 
             case 'root':
-                this.JSON.forEach((recipe) => {  
+                alterate.normalizeData.forEach((recipe) => {  
                     if(recipe[options.fields].includes(options.search)){
                        result.push({
                          idRecipe: recipe.id,
@@ -60,7 +71,8 @@ class GetData{
             break;
 
             case 'lowerLevel': 
-                this.JSON.forEach(recipe => {
+
+                alterate.normalizeData.forEach(recipe => {                    
                 
                     const thisArray = recipe[options.context]          
         
@@ -68,7 +80,7 @@ class GetData{
         
                         if(options.fields !== options.context){ el = el[options.fields]}
                         
-                        if(el.includes(options.search)){ 
+                        if(el.includes(options.search)){                             
                             result.push({
                             idRecipe: recipe.id,
                             value: el,
@@ -83,6 +95,7 @@ class GetData{
 
             break;
         }
+
         return result
     }
 
@@ -90,7 +103,7 @@ class GetData{
 
         let result = []
         data.forEach((el)=>{           
-            result.push(this.JSON.find(recipes => recipes.id === el))
+            result.push(this.jsonData.find(recipes => recipes.id === el))
         })
         return result
     }
