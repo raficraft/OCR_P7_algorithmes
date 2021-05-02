@@ -1,6 +1,5 @@
 
 const delRecipes = ()=>{
-
   //console.error('reset des recettes');
   
   if (document.querySelectorAll(".sticker").length > 0) {
@@ -21,18 +20,12 @@ const showRecipesByID = (recipes) => {
 }
 
 const showValidTags = tagsValid =>{
-
   const showTarget = document.querySelector("#filterResult");     
   const thisTags = makeComponent(new createTags(tagsValid.dataset));
   renderComponent(thisTags, showTarget); 
-
 }
 
-const delTags = target => {
-
-  target.remove()
-  //console.log('del');
-}
+const delTags = target =>  target.remove()
 
 const  majListing = (recipesByID) =>{
 
@@ -59,7 +52,6 @@ const  majListing = (recipesByID) =>{
 
             break;
 
-
             case "root":
 
               recipesByID.forEach((recipe) => {  
@@ -73,15 +65,9 @@ const  majListing = (recipesByID) =>{
             break;
          }
        });
-
-
-       //On supprime les tags dans les list
 }
 
 const showNewListing = (req,newListing) => {
-
-  //console.log(req.context);  
-  //console.log(newListing);
 
   let targetLabel = document.querySelector(`#inputTrigger--${req.context}`);
   thisListing = makeComponent(new createListing(newListing, req));
@@ -93,7 +79,7 @@ const showNewListing = (req,newListing) => {
 
 }
 
-const removeTagInListing = (value) => {  
+const removeTagInListing = (value) => { 
 
     value = normalizeString(value)
 
@@ -101,10 +87,7 @@ const removeTagInListing = (value) => {
       const removeThis = document.querySelector(`li[data-value="${value}"]`)
       removeThis.remove()
     }
-
 }
-
-//Message
 
 const showMessage = (type,message)=>{
 
@@ -123,12 +106,10 @@ const removeAllTags = () => {
     allTags.forEach(tag => {  tag.remove() });
     window.listingEvent.resetInput()
   }
-
 }
 
 const closeListing = () => {
 
-  //console.log('on ferme');
   const thisOpen = document.querySelector('[data-status="openList"]')
       
   if (document.querySelectorAll(".inputList").length > 0) {         
@@ -146,8 +127,3 @@ const closeListing = () => {
 
   }
 }
-
-
-
-
-
