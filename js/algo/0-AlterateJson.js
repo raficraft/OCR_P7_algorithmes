@@ -1,69 +1,71 @@
-class AlterateJson{
-
+class AlterateJSON{
 
     constructor(){
 
         this.recipes = dataJSON
+
         this.dictionnaryFields = [
             {context : 'name', fields : 'name' , depth : 'root' },
             {context : 'ingredients', fields : 'ingredient' , depth : 'lowerLevel' },
-            {context : 'appliance', fields : 'appliance' , depth : 'root' },
-            {context : 'ustensils', fields : 'ustensils' , depth : 'lowerlevel' },
+            {context : 'description', fields : 'description' , depth : 'root' },
         ] 
         this.dictionnary = this.createDictionnary()
-        this.flatData = this.flatJson(dataJSON)                
-        this.normalizeData = this.normalizeJson(dataJSON)
+        this.JSON = this.normalizeJSON(dataJSON)
+        this.flatJSON = this.flatJson() 
+
+        console.log(this.JSON);
+
     }
 
-    flatJson(JSON){
+
+        
+    flatJson(){
 
         const result = []
+
 
         this.dictionnaryFields.forEach(options => {
 
             switch(options.depth){
                 case 'root' :
 
-                    JSON.forEach((recipe) => {  
+                    this.JSON.forEach((recipe) => { 
+                        
 
                         if(!result[recipe.id]){
                             result[recipe.id] = []
                         }
                         if(options.fields === 'description'){
-                        const cleanEntries = this.removeStopWords(recipe[options.fields],this.dictionnary,'keep')
-                       
-                        console.log(cleanEntries);
-                        result[recipe.id] += normalizeString(`${cleanEntries} `)
-                        }else{
-                            result[recipe.id] += normalizeString(`${recipe[options.fields]} `)
-                        }
+                        const cleanEntries = this.removeStopWords(recipe[options.fields],this.dictionnary,'keep')                       
                         
-                    })
+                    
+                            result[recipe.id] += normalizeString(` ${cleanEntries} `)
+                           
 
+                        }else{
+                            result[recipe.id] += normalizeString(` ${recipe[options.fields]} `)
+                          
+                        }                        
+                    })
                 break;
 
                 case 'lowerLevel':
 
-                    JSON.forEach(recipe => {
+                    this.recipes.forEach(recipe => {
     
                         recipe[options.context].forEach(el => {
-
-                            if(!result[recipe.id]){
-                                result[recipe.id] = []
-                            }
-                                                      
-                            result[recipe.id] += normalizeString(`${el[options.fields]} `)
                             
+                            if(!result[recipe.id]){  result[recipe.id] = [] }
+                            if(options.context !== options.fields){el = el[options.fields]}
+                               
+                            result[recipe.id] += normalizeString(`${el} `)
+                                                  
 
                          })
                     })
-
                 break;
             }            
         });
-
-        console.log(result);
-
         return result
  
     }
@@ -73,7 +75,7 @@ class AlterateJson{
      */
     createDictionnary(){
 
-        const dictionnary =[]    
+        const dictionnary = []    
 
         this.recipes.forEach(recipe =>{
 
@@ -84,7 +86,22 @@ class AlterateJson{
                     if(typeof(recipe[key]) !== 'object'){
                     
                     if(!dictionnary.includes(recipe[key])){
+
+                        //console.log(this.removeStopWords(recipe[key],stopwords,'remove'));
                         dictionnary.push(normalizeString(recipe[key]))
+                        //On explose les termes composé afin de les nettoyer des mots en trop type {de,les,la,à...}
+                        //On explose la string obtenue et ajoute chaque terme au dictionnaire
+                        const cleanTermsArray =  this.removeStopWords(recipe[key],stopwords,'remove').split(' ')
+                       
+
+                            cleanTermsArray.forEach(cleanTerms => {
+                                const normalizeCleanTerm = normalizeString(cleanTerms) 
+
+                                if(!dictionnary.includes(normalizeCleanTerm)){
+                                    dictionnary.push(normalizeString(normalizeCleanTerm))
+                                }                                      
+                            });
+                        
                     }
 
                    
@@ -100,6 +117,16 @@ class AlterateJson{
                                 
                                 if(!dictionnary.includes(element['ingredient'])){
                                     dictionnary.push(normalizeString(element['ingredient']))
+                                    const cleanTermsArray =  this.removeStopWords(element['ingredient'],stopwords,'remove').split(' ')
+                                   
+                                    cleanTermsArray.forEach(cleanTerms => {
+                                        const normalizeCleanTerm = normalizeString(cleanTerms) 
+
+                                        if(!dictionnary.includes(normalizeCleanTerm)){
+                                            dictionnary.push(normalizeString(normalizeCleanTerm))
+                                        }                                      
+                                    });
+                                    
                                 }
                             }
                             
@@ -108,6 +135,7 @@ class AlterateJson{
                 }
             })
         })
+
 
         return dictionnary;
 
@@ -126,13 +154,13 @@ class AlterateJson{
         const res = []
         const words = str.split(' ')
         for(let i=0;i<words.length;i++) {
-            let word_clean = words[i].split(".").join("")
+            let word_clean = words[i].split(".").join("")           
             if(action === 'remove'){
                 if(!dictionnary.includes(word_clean)) {
                     res.push(word_clean)
                 }
-            }else if(action === 'keep'){                
-                if(dictionnary.includes(word_clean)) {                    
+            }else if(action === 'keep'){                     
+                if(dictionnary.includes(word_clean)) {             
                     res.push(word_clean)
                 }
             }
@@ -140,75 +168,84 @@ class AlterateJson{
         return(res.join(' '))
     }
 
-    /*Enlève tout les accents des champs ciblé*/
-    normalizeJson(JSON){
+    /**
+     * Vire Tout les accents présent dans les champs de type string du fichier Json
+     * @param {*} JSON 
+     * @returns newJson
+     */
 
-        console.log('search');
+     normalizeJSON(JSON){
 
-        const newJSON = []
+        // console.log(JSON);
+  
+          const newJSON = []
+  
+          JSON.forEach((recipe,key) => {
+  
+          //  console.log(recipe);
+              const thisKey = Object.keys(recipe)
+              newJSON[key] = {}
+             
+  
+              thisKey.forEach(fields => {
+                  
+                  
+                 // console.log(typeof(recipe[fields]));
+  
+                  switch(typeof(recipe[fields])){
+  
+                      case 'string': 
+  
+                      newJSON[key][fields] = normalizeString(recipe[fields])                  
+                      
+                      break
+                      case 'number':
+                      newJSON[key][fields] = recipe[fields]
+                      break
+                      case 'object': 
+  
+                      newJSON[key][fields] = []
+  
+                      recipe[fields].forEach(lowerLevel => {
+  
+                          switch(typeof(lowerLevel)){
+  
+                              case 'string':
+  
+                              newJSON[key][fields].push(normalizeString(lowerLevel))
+                                  
+                              break;
+                              case 'object': 
+  
+                              const newEntries = {}
 
-        JSON.forEach((recipe,key) => {
+                              const lowerLevelKeys = Object.keys(lowerLevel)
+                              lowerLevelKeys.forEach(thisKeys => {
+                                  
+                                  newEntries[thisKeys] = normalizeString(lowerLevel[thisKeys])
+  
+                              });
 
-        //  console.log(recipe);
-            const thisKey = Object.keys(recipe)
-            newJSON[key] = {}
-            
-
-            thisKey.forEach(fields => {
-                
-
-                switch(typeof(recipe[fields])){
-
-                    case 'string': 
-
-                    newJSON[key][fields] = normalizeString(recipe[fields])                  
-                    
-                    break
-                    case 'number':
-                    newJSON[key][fields] = recipe[fields]
-                    break
-                    case 'object': 
-
-                    newJSON[key][fields] = []
-
-                    recipe[fields].forEach(lowerLevel => {
-
-                        switch(typeof(lowerLevel)){
-
-                            case 'string':
-
-                            newJSON[key][fields].push(normalizeString(lowerLevel))
-                                
-                            break;
-                            case 'object': 
-
-                            const newEntries = {}
-
-                            const lowerLevelKeys = Object.keys(lowerLevel)
-                            lowerLevelKeys.forEach(thisKeys => {
-                                
-                                newEntries[thisKeys] = normalizeString(lowerLevel[thisKeys])
-
-                            });
-
-                            newJSON[key][fields].push(newEntries)
-                            
-                            break;
-                        }
-                        
-                    });
-                    
-                    break
-                }
-            });
-
-            
-        });
-
-        return newJSON
+                              newJSON[key][fields].push(newEntries)
+                              
+                              //console.log(newEntries);
+                              
+                              break;
+                          }
+                          
+                      });
+                       
+                      break
+                  }
+              });
+  
+              
+          });
+          
+          return newJSON
     }
+
 
 }
 
-console.log('alterate');
-const alterate = new AlterateJson()
+const alterate = new AlterateJSON()

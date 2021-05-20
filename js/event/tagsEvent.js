@@ -45,10 +45,7 @@ class TagsEvent{
                 majListing(recipesByID)
                 
                 //On réinitilise le clique dans les nouveaux listing
-                init.options.forEach(O =>{  new ListingEvent(O)  })
-
-               
-    
+                init.options.forEach(O =>{  new ListingEvent(O)  })    
     
             }else{    
               showMessage('error','Aucun résultat')    

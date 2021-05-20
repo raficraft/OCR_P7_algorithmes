@@ -15,7 +15,7 @@ class GlobalSearch{
             if(e.target.value.match(/^[A-Za-zÀ-ÿ\d\-\s]+$/) && e.key !==' '){
 
                 if(e.target.value.length > 2){
-                getData.JSON = dataJSON
+                getData.JSON = alterate.JSON 
                 removeAllTags()
                 this.request(e.target.value)
                 }
@@ -40,13 +40,17 @@ class GlobalSearch{
 
         console.log(keyWords);
          /*Algorithme*/
-        var t0 = performance.now();
+
+         
+      
         getData.jsonData = alterate.normalizeData
+
+        console.log(getData);
         const keyWordsArray = keyWords.trim().replace(/  +/g, ' ').split(' ') //vire tous les espaces comprit dans la chaîne de caractères  
         const idByGlobal = idByGlobalSearch(keyWordsArray)
         const uniqueID = getUniqueID(idByGlobal)
-        var t1 = performance.now();
-        console.log("L'appel de doSomething a demandé " + (t1 - t0) + " millisecondes.") 
+      
+        
         
         if(uniqueID.length > 0){
 
