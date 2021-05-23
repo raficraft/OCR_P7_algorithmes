@@ -38,19 +38,12 @@ class GlobalSearch{
 
     request(keyWords){
 
-        console.log(keyWords);
-         /*Algorithme*/
-
-         
       
         getData.jsonData = alterate.normalizeData
 
-        console.log(getData);
-        const keyWordsArray = keyWords.trim().replace(/  +/g, ' ').split(' ') //vire tous les espaces comprit dans la chaîne de caractères  
-        const idByGlobal = idByGlobalSearch(keyWordsArray)
-        const uniqueID = getUniqueID(idByGlobal)
-      
-        
+        const idByGlobal = getData.getIDGlobalSearch(keyWords)
+        const uniqueID = getUniqueIdWithFilterResult(idByGlobal) 
+     
         
         if(uniqueID.length > 0){
 

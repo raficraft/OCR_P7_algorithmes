@@ -8,8 +8,11 @@ class createRecipe{
     this.elHTML = '<section class="mainWrapper">'
     let styleDelay =0
 
+    console.log(thisData);
+
         thisData.forEach(data => {
 
+            console.log(data.id);
 
             this.elHTML += 
                 `<article class="sticker" data-id="${data.id}" style="animation-delay:${styleDelay}ms;">
