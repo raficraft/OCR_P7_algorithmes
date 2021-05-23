@@ -46,8 +46,6 @@ class GlobalSearch{
 
         if(sessionStorage.getItem(keyWords)){
 
-            console.log('storage ok');
-
             this.uniqueID = JSON.parse(sessionStorage.getItem(keyWords))  
             console.log(this.uniqueID);
 
@@ -58,15 +56,10 @@ class GlobalSearch{
             const idByGlobal = getData.getIDGlobalSearch(keyWordsArray)
             this.uniqueID = getUniqueIdWithFilterResult(idByGlobal) 
             const storageArray = JSON.stringify(this.uniqueID)
+            //Ajout du resultat dans le sesssionsStorage
             sessionStorage.setItem(keyWords, storageArray)
 
         }
-
-
-       
-
-        
-      
         
         
         if(this.uniqueID.length > 0){
