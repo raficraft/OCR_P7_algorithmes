@@ -4,13 +4,13 @@ class GlobalSearch{
             
         this.input = document.querySelector('.search input')
         this.resultRecipes = dataJSON
+        
         /**
          * L'événement utilise une fonction debounce pour limiter
          * le nombre d'apelle à l'API
          */
 
         this.input.addEventListener('keyup',debounce((e)=>{
-
 
             if(e.target.value.match(/^[A-Za-zÀ-ÿ\d\-\s]+$/) && e.key !==' '){
 
@@ -38,22 +38,40 @@ class GlobalSearch{
 
     request(keyWords){
 
-        console.log(keyWords);
-         /*Algorithme*/
-
-         
-      
+         /*Algorithme*/      
         getData.jsonData = alterate.normalizeData
 
-        console.log(getData);
-        const idByGlobal = getData.getIDGlobalSearch(keyWords)
-        const uniqueID = getUniqueIdWithFilterResult(idByGlobal) 
+
+        console.log(sessionStorage);
+
+        if(sessionStorage.getItem(keyWords)){
+
+            console.log('storage ok');
+
+            this.uniqueID = JSON.parse(sessionStorage.getItem(keyWords))  
+            console.log(this.uniqueID);
+
+
+        }else{
+
+            const keyWordsArray = keyWords.trim().replace(/  +/g, ' ').split(' ') 
+            const idByGlobal = getData.getIDGlobalSearch(keyWordsArray)
+            this.uniqueID = getUniqueIdWithFilterResult(idByGlobal) 
+            const storageArray = JSON.stringify(this.uniqueID)
+            sessionStorage.setItem(keyWords, storageArray)
+
+        }
+
+
+       
+
+        
       
         
         
-        if(uniqueID.length > 0){
+        if(this.uniqueID.length > 0){
 
-            const recipesByID  =  getData.getRecipeByID(uniqueID); 
+            const recipesByID  =  getData.getRecipeByID(this.uniqueID); 
             this.showResult(recipesByID)
             this.cleanListing(keyWords)
 
@@ -88,6 +106,22 @@ class GlobalSearch{
          keyWordsArray.forEach(delThis => {
              removeTagInListing(delThis) 
          });
+    }
+
+
+    checkStorage(keyWords){
+
+
+        console.log(localStorage);
+
+
+
+           /* const uniqueID = JSON.parse(this.params.storageArray)  
+            const result = getData.getRecipeByID(uniqueID)  
+            return result  
+            */
+
+            return false
     }
 }
 

@@ -93,11 +93,11 @@ class GetData{
 
 
 
-    getIDGlobalSearch(keyWords){
+    getIDGlobalSearch(keyWordsArray){
 
         const result = []
         const options = init.globalOptions
-        const keyWordsArray = keyWords.trim().replace(/  +/g, ' ').split(' ') 
+        
 
             keyWordsArray.forEach(keyword => {
                 if(!stopwords.includes(keyword)){
