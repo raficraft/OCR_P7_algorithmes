@@ -15,17 +15,17 @@ class GetData{
 
             case 'root':
 
-                this.JSON.forEach(recipe => {
-                    if(!result.includes(recipe[options.fields])){
-                        result.push(recipe[options.fields])
-                    }           
-                });
+            this.recipes.forEach(recipe => {
+                if(!result.includes(recipe[options.fields])){
+                    result.push(recipe[options.fields])
+                }           
+            });
 
             break;
 
             case 'lowerLevel':             
             
-            this.JSON.forEach(recipe => {
+            this.recipes.forEach(recipe => {
     
                 recipe[options.context].forEach(el => {                
     
@@ -93,37 +93,27 @@ class GetData{
 
 
 
-    getIDGlobalSearch(keyWords){
+    getIDGlobalSearch(keyWordsArray){
 
-        const result = []
-        const options = init.globalOptions
-        const keyWordsArray = keyWords.trim().replace(/  +/g, ' ').split(' ') 
+        let result = new Set()
 
-            keyWordsArray.forEach(keyword => {
-                if(!stopwords.includes(keyword)){
-                    options.forEach(option => {
-
-                        
-                        if(option.depth === 'root'){
-                        //console.log(this.JSON.filter(data => data[option.context].includes(keyWords)));
-                            result.push(this.JSON.filter(data => data[option.context].includes(keyword)));
-                        }
-
-                        if(option.depth === 'lowerLevel'){
-                        result.push(this.JSON.filter(data => 
-                            data[option.context].some(dataLowerLevel => dataLowerLevel[option.fields].includes(keyword))
-                            ))
-                        }   
-                        
-                    
-                    });
-                }
-            })      
-
+        keyWordsArray.forEach(keyword => {
+            if(!stopwords.includes(keyword)){                
+        
+                let thisKeys = 0
+                this.flatJSON.filter((data,key)=> {
+                    if(data.includes(keyword)){
+                        console.log(thisKeys);
+                        result.add(thisKeys)
+                    }  
+                    thisKeys++               
+                })
+            }
+            
+        })
         return result
 
     }
-
 
     getRecipeByID(data){
 
@@ -134,9 +124,6 @@ class GetData{
           
             result.push(this.recipes.find(recipes => recipes.id === el))
         })
-        console.log(result);
         return result
-    }
-
-    
+    }    
 }

@@ -41,13 +41,30 @@ class GlobalSearch{
       
         getData.jsonData = alterate.normalizeData
 
-        const idByGlobal = getData.getIDGlobalSearch(keyWords)
-        const uniqueID = getUniqueIdWithFilterResult(idByGlobal) 
+
+        if(sessionStorage.getItem(keyWords)){
+
+            this.uniqueID = JSON.parse(sessionStorage.getItem(keyWords))  
+            console.log(this.uniqueID);
+
+
+        }else{
+
+            const keyWordsArray = keyWords.trim().replace(/  +/g, ' ').split(' ') 
+            
+            this.uniqueID = getData.getIDGlobalSearch(keyWordsArray)
+
+            //Ajout du resultat dans le sesssionsStorage
+            const storageArray = JSON.stringify(this.uniqueID)
+            sessionStorage.setItem(keyWords, storageArray)
+
+        }
+      
      
         
-        if(uniqueID.length > 0){
+        if(this.uniqueID.size > 0){
 
-            const recipesByID  =  getData.getRecipeByID(uniqueID); 
+            const recipesByID  =  getData.getRecipeByID(this.uniqueID); 
             this.showResult(recipesByID)
             this.cleanListing(keyWords)
 
