@@ -214,3 +214,18 @@ const checkResultKeyWords = (search) => {
     return IDresult
   }
   
+  const getUniqueIdWithFilterResult = (thisData) =>{  
+
+    comparaisonChart = []
+    console.log(thisData);
+  
+    thisData.forEach((data) => {
+      data.forEach((value) => {
+        if (!comparaisonChart.includes(value.id)) {
+            comparaisonChart.push(value.id);
+        }
+      });
+    });
+    return comparaisonChart  
+  }
+  

@@ -42,10 +42,6 @@ class GetData{
 
     specificData(options){
 
-        console.log(options.search);
-        console.log(options);
-        console.log(this.JSON);
-
         let result = []
         switch(options.depth){
 
@@ -53,7 +49,7 @@ class GetData{
                 this.JSON.forEach((recipe) => {  
                     if(recipe[options.fields].includes(options.search)){
                        result.push({
-                         idRecipe: recipe.id,
+                         id: recipe.id,
                          value: recipe[options.fields],
                          context: options.context,
                          fields: options.fields,
@@ -78,7 +74,7 @@ class GetData{
                         
                         if(el.includes(options.search)){                             
                             result.push({
-                            idRecipe: recipe.id,
+                            id: recipe.id,
                             value: el,
                             context: options.context,
                             fields: options.fields,
@@ -92,10 +88,42 @@ class GetData{
             break;
         }
 
-        console.log(result);
-
         return result
     }
+
+
+
+    getIDGlobalSearch(keyWords){
+
+        const result = []
+        const options = init.globalOptions
+        const keyWordsArray = keyWords.trim().replace(/  +/g, ' ').split(' ') 
+
+            keyWordsArray.forEach(keyword => {
+                if(!stopwords.includes(keyword)){
+                    options.forEach(option => {
+
+                        
+                        if(option.depth === 'root'){
+                        //console.log(this.JSON.filter(data => data[option.context].includes(keyWords)));
+                            result.push(this.JSON.filter(data => data[option.context].includes(keyword)));
+                        }
+
+                        if(option.depth === 'lowerLevel'){
+                        result.push(this.JSON.filter(data => 
+                            data[option.context].some(dataLowerLevel => dataLowerLevel[option.fields].includes(keyword))
+                            ))
+                        }   
+                        
+                    
+                    });
+                }
+            })      
+
+        return result
+
+    }
+
 
     getRecipeByID(data){
 
