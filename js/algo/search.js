@@ -47,7 +47,6 @@ class GlobalSearch{
             this.uniqueID = JSON.parse(sessionStorage.getItem(keyWords))  
             console.log(this.uniqueID);
 
-
         }else{
 
             const keyWordsArray = keyWords.trim().replace(/  +/g, ' ').split(' ') 
@@ -59,7 +58,6 @@ class GlobalSearch{
             sessionStorage.setItem(keyWords, storageArray)
 
         }
-      
      
         
         if(this.uniqueID.size > 0){
