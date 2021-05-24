@@ -120,6 +120,8 @@ class GetData{
                 }
             })      
 
+            console.log(result);
+
         return result
 
     }
