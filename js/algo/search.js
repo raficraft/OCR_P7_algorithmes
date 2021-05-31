@@ -49,8 +49,7 @@ class GlobalSearch{
 
         }else{
 
-            const keyWordsArray = keyWords.trim().replace(/  +/g, ' ').split(' ') 
-            
+            const keyWordsArray = keyWords.trim().replace(/  +/g, ' ').split(' ')             
             this.uniqueID = getData.getIDGlobalSearch(keyWordsArray)
 
             //Ajout du resultat dans le sesssionsStorage
