@@ -67,14 +67,16 @@ const checkResultKeyWords = (search) => {
   
           O.search = normalizeString(search)
           const result  = getData.specificData(O)  
+
+          console.error('  ?????????? ', result);
   
-          if(validSearch === true){
+          if(validSearch === true && !stopwords.includes(search)){
   
             idByGlobal.push(result); 
   
           }else{
   
-            //On supprime du champ de recherche, le mot clef qui ne renvoie pas de résultat  
+            //On supprime du champ de recherche, le mot clef qui ne renvoie pas de résultat {optionnel} 
             thisInput = document.querySelector('.search input')
             const str = thisInput.value
             thisInput.value = str.replace(`${search}` , '')
@@ -84,6 +86,10 @@ const checkResultKeyWords = (search) => {
         });  
   
       });
+
+      console.log(idByGlobal);
+
+      console.log(idByGlobal);
 
     return idByGlobal
   
@@ -159,8 +165,8 @@ const checkResultKeyWords = (search) => {
   
     thisData.forEach((data) => {
       data.forEach((value) => {
-        if (!comparaisonChart.includes(value.idRecipe)) {
-            comparaisonChart.push(value.idRecipe);
+        if (!comparaisonChart.includes(value.id)) {
+            comparaisonChart.push(value.id);
         }
       });
     });
@@ -190,9 +196,9 @@ const checkResultKeyWords = (search) => {
   
       idByKeyWords[count].forEach((el) => {
         comparaisonChart.forEach((idControl) => {
-          if (el.idRecipe === idControl) {
-            if (!idValid.toString().includes(el.idRecipe.toString())) {
-              idValid.push(el.idRecipe);
+          if (el.id === idControl) {
+            if (!idValid.toString().includes(el.id.toString())) {
+              idValid.push(el.id);
             }
           }
         });
@@ -213,7 +219,8 @@ const checkResultKeyWords = (search) => {
   
     return IDresult
   }
-  
+
+
   const getUniqueIdWithFilterResult = (thisData) =>{  
 
     comparaisonChart = []
@@ -228,4 +235,3 @@ const checkResultKeyWords = (search) => {
     });
     return comparaisonChart  
   }
-  

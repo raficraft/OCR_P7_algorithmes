@@ -163,9 +163,14 @@ header {
   align-self: center;
   display: flex;
   height: 93px;
+  width: 536px;
   justify-content: center;
   margin-top: 2.625rem;
   margin-bottom: 1.0625rem;
+}
+.headerInside .logo img {
+  object-fit: cover;
+  height: 100%;
 }
 
 .search {

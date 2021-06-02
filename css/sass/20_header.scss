@@ -13,9 +13,15 @@ header{
         align-self: center;
         display: flex;
         height : 93px;
+        width: 536px;
         justify-content: center;
         margin-top : rem(42);
         margin-bottom : rem(17);
+
+        img{
+        object-fit: cover;
+        height: 100%;
+        }
 
     }
 }

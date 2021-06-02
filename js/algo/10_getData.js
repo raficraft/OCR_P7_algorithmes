@@ -42,12 +42,16 @@ class GetData{
 
     specificData(options){
 
+        console.log(options);
+
         let result = []
         switch(options.depth){
 
             case 'root':
                 this.JSON.forEach((recipe) => {  
-                    if(recipe[options.fields].includes(options.search)){
+                    console.log(recipe[options.fields]);
+                    console.log(options.search);
+                    if(recipe[options.fields].toString().includes(options.search)){
                        result.push({
                          id: recipe.id,
                          value: recipe[options.fields],
