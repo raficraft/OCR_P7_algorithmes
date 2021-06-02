@@ -136,6 +136,8 @@ class ListingEvent{
         }
 
         /*Algorithme*/
+
+        console.log(target);
         const idByKeywords = getIdBykeyWord(target)
         const uniqueID     = getUniqueID(idByKeywords)  
         const validID      = sortIdInAllArray(idByKeywords,uniqueID)

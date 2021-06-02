@@ -13,6 +13,8 @@ class createRecipe{
         thisData.forEach(data => {
 
 
+            console.log(data);
+
             this.elHTML += 
                 `<article class="sticker" data-id="${data.id}" style="animation-delay:${styleDelay}ms;">
                     <p class="flexImg"></p>

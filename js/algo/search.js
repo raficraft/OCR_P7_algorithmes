@@ -4,13 +4,13 @@ class GlobalSearch{
             
         this.input = document.querySelector('.search input')
         this.resultRecipes = dataJSON
+        
         /**
          * L'événement utilise une fonction debounce pour limiter
          * le nombre d'apelle à l'API
          */
 
         this.input.addEventListener('keyup',debounce((e)=>{
-
 
             if(e.target.value.match(/^[A-Za-zÀ-ÿ\d\-\s]+$/) && e.key !==' '){
 
@@ -38,26 +38,26 @@ class GlobalSearch{
 
     request(keyWords){
 
-      
-        getData.jsonData = alterate.normalizeData
+         /*Algorithme*/      
+        getData.jsonData = alterate.flatJSON
 
+
+        console.log(sessionStorage);
 
         if(sessionStorage.getItem(keyWords)){
 
             this.uniqueID = JSON.parse(sessionStorage.getItem(keyWords))  
-            console.log(this.uniqueID);
 
         }else{
 
-            const keyWordsArray = keyWords.trim().replace(/  +/g, ' ').split(' ')             
-            this.uniqueID = getData.getIDGlobalSearch(keyWordsArray)
-
-            //Ajout du resultat dans le sesssionsStorage
+            const keyWordsArray = keyWords.trim().replace(/  +/g, ' ').split(' ') 
+            this.uniqueID = getData.getIDGlobalSearch(keyWordsArray) 
             const storageArray = JSON.stringify(this.uniqueID)
+            //Ajout du resultat dans le sesssionsStorage
             sessionStorage.setItem(keyWords, storageArray)
 
         }
-     
+        
         
         if(this.uniqueID.size > 0){
 
@@ -96,6 +96,22 @@ class GlobalSearch{
          keyWordsArray.forEach(delThis => {
              removeTagInListing(delThis) 
          });
+    }
+
+
+    checkStorage(keyWords){
+
+
+        console.log(localStorage);
+
+
+
+           /* const uniqueID = JSON.parse(this.params.storageArray)  
+            const result = getData.getRecipeByID(uniqueID)  
+            return result  
+            */
+
+            return false
     }
 }
 

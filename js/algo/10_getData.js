@@ -97,16 +97,18 @@ class GetData{
 
         let result = new Set()
 
+        console.log(this.flatJSON);
+
         keyWordsArray.forEach(keyword => {
             if(!stopwords.includes(keyword)){                
         
-                let thisKeys = 0
+                
                 this.flatJSON.filter((data,key)=> {
                     if(data.includes(keyword)){
-                        console.log(thisKeys);
-                        result.add(thisKeys)
+                        console.log(key);
+                        result.add(key)
                     }  
-                    thisKeys++               
+                              
                 })
             }
             
@@ -117,7 +119,6 @@ class GetData{
 
     getRecipeByID(data){
 
-        console.log(data);
 
         let result = []
         data.forEach((el)=>{       
