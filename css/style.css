@@ -342,11 +342,15 @@ header {
 .sticker .flexImg {
   display: flex;
   height: 178px;
-  content: "klklk";
+  content: "";
   width: 100%;
   background-color: #C7BEBE;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
+}
+.sticker .flexImg img {
+  width: 100%;
+  object-fit: cover;
 }
 .sticker article {
   height: 186px;
