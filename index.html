@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <title>Les petits plats</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    
+    <!-- rule css font-family: 'DM Sans', sans-serif;  -->
+    
+    <script type="text/javascript" src="js/data/dataJSON.js" defer></script>
+    <script type="text/javascript" src="js/tools/tools.js" defer></script>
+
+    <script type="text/javascript" src="js/component/recipe.js" defer></script>
+    <script type="text/javascript" src="js/component/listing.js" defer></script>
+    <script type="text/javascript" src="js/component/tags.js" defer></script>
+    <script type="text/javascript" src="js/component/alertMessage.js" defer></script>
+
+    <script type="text/javascript" src="js/event/function.js" defer></script>
+    <script type="text/javascript" src="js/event/functionAlgo.js" defer></script>
+    <script type="text/javascript" src="js/event/listingEvent.js" defer></script>
+    <script type="text/javascript" src="js/event/tagsEvent.js" defer></script>
+    
+    
+    <script type="text/javascript" src="js/algo/0-AlterateJson.js" defer></script>
+    <script type="text/javascript" src="js/algo/10_getData.js" defer></script>
+
+    <script type="text/javascript" src="js/algo/00_init.js" defer></script>
+    <script type="text/javascript" src="js/algo/search.js" defer></script>
+    
+    
+    <link rel="preconnect" href="https://fonts.gstatic.com">        
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">  
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&display=swap" rel="stylesheet">
+    
+    <link  href="css/style.css" rel="stylesheet">
+  </head>
+  <body id="body">
+
+    <header>
+     
+      <div class="headerInside">
+        <p class="logo"><img src="img/logo.png" alt="Logo des entreprises Les petits plats"></p>
+      
+
+
+      <div id="search" class="search">
+        <input type="search" data-js="search" data-context="global"
+        placeholder="Rechercher un ingredient; appareil, ustensiles ou une recette">
+        <i class="fas fa-search"></i>
+      </div>
+     
+  
+        <div id="filterResult" class="filterResult">
+         <!--
+          <P class="filterTag filterTag--blue color--ingredients" 
+          data-tag data-context="ingredients" data-fields="ingredient" data-depth="lowerLevel" data-value="coco">
+          coco
+          <i class="far fa-times-circle" data-js="delParent" ></i></p>
+
+          <P class="filterTag filterTag--green color--appliance" 
+          data-tag data-context="appliance" data-fields="appliance" data-depth="root" data-value="blender">
+          blender
+          <i class="far fa-times-circle" data-js="delParent" ></i></p>
+
+          
+
+          <P class="filterTag filteTag--red color--ustensils" 
+          data-tag data-context="ustensils" data-fields="ustensils" data-depth="lowerLevel" data-value="verres">
+            verres
+          <i class="far fa-times-circle" data-js="delParent" ></i></p>
+         -->
+        </div>
+  
+ 
+        <div class="allInput">
+
+          <!-- Input ingredient-->  
+
+          <!--
+            <label id="inputTrigger--name" class="inputTrigger" data-status="close">
+                <input type="text" placeholder="Nom de la recette" class="color--name" data-js="search" data-context="name" 
+                data-sugg   data-placeholder="Nom de la recette" data-fields="name" data-depth="root">
+                <i class="fas fa-chevron-down" data-js="openListing" data-context="name"></i>
+                <i class="fas fa-chevron-up elHidden" data-js="closeListing" data-context="name"></i>                             
+            </label>              
+            
+            
+            <label id="inputTrigger--time" class="inputTrigger" data-status="close">
+                <input type="text" placeholder="Temps de cuisson" class="color--time"
+                data-js="search" data-context="time" 
+                data-sugg   data-placeholder="Temps de cuisson" data-fields="time" data-depth="root">
+                <i class="fas fa-chevron-down" data-js="openListing" data-context="time"></i>
+                <i class="fas fa-chevron-up elHidden" data-js="closeListing" data-context="time"></i>                             
+            </label>  
+
+
+            <label id="inputTrigger--servings" class="inputTrigger" data-status="close">
+                <input type="text" placeholder="Nombre de personnes" class="color--servings"
+                data-js="search" data-context="servings" 
+                data-sugg   data-placeholder="Nombre de personnes" data-fields="servings" data-depth="root">
+                <i class="fas fa-chevron-down" data-js="openListing" data-context="servings"></i>
+                <i class="fas fa-chevron-up elHidden" data-js="closeListing" data-context="servings"></i>                             
+            </label>  
+          -->
+          
+            
+          
+            <label id="inputTrigger--ingredients" class="inputTrigger" data-status="close">              
+                <input type="text" placeholder="Ingredients" class="color--ingredients" data-placeholder="Ingredients"
+                data-sugg  data-js="search" data-context="ingredients" data-fields="ingredient" data-depth="lowerLevel">
+                <i class="fas fa-chevron-down" data-js="openListing" data-context="ingredients"></i>
+                <i class="fas fa-chevron-up elHidden" data-js="closeListing" data-context="ingredients"></i>                             
+            </label>
+
+            
+       
+          
+            <!-- Input appareil-->  
+
+         
+            <label id="inputTrigger--appliance" class="inputTrigger" data-status="close">
+                <input type="text" placeholder="Appareil" class="color--appliance" data-placeholder="Appareil"
+                data-sugg  data-js="search" data-context="appliance"  data-fields="appliance" data-depth="root">
+                <i class="fas fa-chevron-down" data-js="openListing" data-context="appliance"></i>
+                <i class="fas fa-chevron-up elHidden" data-js="closeListing" data-context="appliance"></i>                 
+            </label>
+         
+
+            <!-- Input ustensiles-->
+            
+            <label id="inputTrigger--ustensils" class="inputTrigger" data-status="close">
+                <input type="search" placeholder="Ustensiles" class="color--ustensils" data-placeholder="Ustensiles"
+                data-sugg  data-js="search" data-context="ustensils" data-fields="ustensils" data-depth="lowerLevel">
+                <i class="fas fa-chevron-down" data-js="openListing" data-context="ustensils"></i>
+                <i class="fas fa-chevron-up elHidden" data-js="closeListing" data-context="ustensils"></i>              
+            </label>  
+         
+
+    </header>
+
+    <main id="main" class="main"></main>
+
+  </body>
+
+</html>

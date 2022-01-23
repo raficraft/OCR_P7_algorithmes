@@ -1,0 +1,108 @@
+.mainWrapper{
+    display: flex;
+    width : 1240px;
+    margin : auto;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    z-index: 10;
+    position: relative;
+}
+
+.sticker{
+    display : flex;
+    flex-direction: column;
+    max-width: 31%;
+    background-color: $first-gray;
+    border-radius: 5px;
+    margin-bottom : 50px;
+    opacity: 0;
+
+    animation: soft_show_from_down;
+    animation-duration: 0.3s;
+    animation-fill-mode: forwards; 
+    transform: translateY(100px);
+    
+
+
+    .flexImg{
+        display: flex;
+        height: 178px;
+        content : 'klklk';
+        width : 100%;
+        background-color: $snd-gray;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+    }
+
+    article{
+        height : 186px;
+        display : flex;
+        flex-direction: column;
+
+        header{
+            display: flex;
+            justify-content: space-between;
+            padding : rem(20);
+            font-size: rem(18);
+        }
+
+        h2{
+            font-family: $font;
+            font-weight: 400;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            width :70%;
+        }
+
+        .timer{
+            font-weight : bold;
+        }
+        i{
+            margin-right : rem(7)
+        }
+    }
+
+    footer{
+        display: flex;
+        padding : 0 rem(18) rem(15) rem(20);
+        
+
+        ul{
+           display: flex;
+           flex-direction: column;
+           width : 48%;   
+           margin-right: 2%; 
+            overflow: hidden; 
+            li{
+                display: flex;
+                margin-bottom: 0.125rem;
+            }     
+        }
+
+        .multiLine__ellipsis{
+            display: flex;
+            flex-direction: column;
+            width : 49%;
+        }
+
+        p{
+            display: -webkit-box;
+            -webkit-line-clamp: 9;
+            -webkit-box-orient: vertical;  
+            overflow: hidden;
+        }
+
+        
+    }
+
+    .textSmall{
+        font-family: $roboto;
+        font-size : rem(12);
+        font-weight : 400;
+    }
+
+    .textBold{
+        font-weight: bold;
+    }
+}

@@ -1,4 +1,4 @@
-const recipes = [
+const dataJSON = [
     {
         "id": 1,
         "name" : "Limonade de Coco",
@@ -30,7 +30,7 @@ const recipes = [
         "time": 10,
         "description": "Mettre les glaçons à votre goût dans le blender, ajouter le lait, la crème de coco, le jus de 2 citrons et le sucre. Mixer jusqu'à avoir la consistence désirée",
         "appliance": "Blender",
-        "ustensils": ["cuillère à Soupe", "verres", "presse citron" ]
+        "ustensils": ["Cuillère à Soupe", "verres", "presse citron" ]
     },
     {
         "id": 2,
@@ -59,7 +59,7 @@ const recipes = [
                 "quantity" : 5
             },
             {
-                "ingredient" : "Lait de Coco",
+                "ingredient" : "Lait de coco",
                 "quantity" : 100,
                 "unit" : "ml"
             }
@@ -160,7 +160,7 @@ const recipes = [
                 "quantity": 2
            },
            {
-               "ingredient": "Crème fraiche",
+               "ingredient": "Crème fraîche",
                "quantity": 2,
                "unit": "cuillères à soupe"
            },
@@ -198,12 +198,12 @@ const recipes = [
                 "quantity": "2"
             },
             {
-                "ingredient":"Crème fraiche",
+                "ingredient":"Crème fraîche",
                 "quantity":25,
                 "unit": "cl"
             },
             {
-                "ingredient": "Sucre en Poudre",
+                "ingredient": "Sucre en poudre",
                 "quantity": 100,
                 "unit":"grammes"
             },
@@ -250,7 +250,7 @@ const recipes = [
         "time": 50,
         "description": "Etaler la pate dans les moules à tartelette. Faire cuire la pate 30 minutes. Découper le chocolat en morceau et le faire chauffer, y ajouter la crême liquide, ajouter le beurre et remuer jusqu'à avoir une pâte homogène. Verser la pate sur les tartelettes. Couper les fraises en 2 et les positionner sur ",
         "appliance":"Four",
-        "ustensils":["moule à tartelettes (6)", "casserolle"]
+        "ustensils":["moule à tartelettes (6)", "Casserole"]
     }, {
         "id": 8,
         "name": "Brownie",
@@ -276,12 +276,12 @@ const recipes = [
                 "quantity": 2
            },
            {
-               "ingredient": "Sucre en Poudre",
+               "ingredient": "Sucre en poudre",
                "quantity": "110",
                "unit": "grammes"
            },
            {
-                "ingredient": "farine",
+                "ingredient": "Farine",
                 "quantity": 90,
                 "unit": "grammes"
            }
@@ -290,7 +290,7 @@ const recipes = [
         "time": 60,
         "description": "Hachez les noix grossièrement. Faire fondre le chocolat avec le beurre. Mélanger les oeuf et le sucre et mélanger au chocolat. Ajouter la farine. Mélanger afin d'avoir quelque chose d'homogène puis incorporer les noix. Verser la préparation dans un moule de préférence rectangulaire. Cuire 2O à 25 minutes à 180°. Sortez du four et attendez quelques minutes pour démouler. Servir avec une boule de glace pour plus de gourmandise.",
         "appliance": "Four",
-        "ustensils": ["moule à gateaux", "casserolle"]
+        "ustensils": ["moule à gateaux", "Casserole"]
     },
     {
         "id": 9,
@@ -322,7 +322,7 @@ const recipes = [
         "time": 15,
         "description":"Peler le concombre le couper 2, retirer les pépins. Couper les olives en morceaux, ainsi que le fromage de chèvre. Ajouter le basilic ainsi que le vinaigre balsamic et l'huile d'olives à votre gout.",
         "appliance":"Saladier",
-        "ustensils":["cuillère en bois", "couteau"]
+        "ustensils":["Cuillère en bois", "couteau"]
     },
     {
         "id": 10,
@@ -379,7 +379,7 @@ const recipes = [
                 "unit": "tranches"
             }, 
             {
-                "ingredient": "Pommes",
+                "ingredient": "Pomme",
                 "quantity": 1
             },
             {
@@ -407,7 +407,7 @@ const recipes = [
                 "unit": "grammes"
             },
             {
-                "ingredient": "Pommes",
+                "ingredient": "Pomme",
                 "quantity": 8
             },
             {
@@ -422,7 +422,7 @@ const recipes = [
             }
         ],
         "time": 40,
-        "description": "Éplucher les fruits et les couper en morceaux, les mettre dans une casserolle en ajoutant l'eau et le sucre vanillé. Laisser cuire 15 minutes en remuant régulièrement.",
+        "description": "Éplucher les fruits et les couper en morceaux, les mettre dans une casserole en ajoutant l'eau et le sucre vanillé. Laisser cuire 15 minutes en remuant régulièrement.",
         "appliance": "Casserole",
         "ustensils": ["couteau", "économe"]
     },
@@ -452,7 +452,7 @@ const recipes = [
                 "unit":"cuillère à soupe"
             },
             {
-                "ingredient": "huile d'olive",
+                "ingredient": "Huile d'olive",
                 "quantity": 2,
                 "unit": "cuillère à soupe"
             }
@@ -567,7 +567,7 @@ const recipes = [
                 "unit":"tiges"
             },
             {
-                "ingredient": "huile d'olives",
+                "ingredient": "Huile d'olive",
                 "quantity": 2,
                 "unit": "cuillère à soupe"
             }
@@ -683,7 +683,7 @@ const recipes = [
                 "unit": "grammes"
             },
             {
-                "ingredient": "Crème fraiche",
+                "ingredient": "Crème fraîche",
                 "quantity": 200,
                 "unit": "grammes"
             },
@@ -693,7 +693,7 @@ const recipes = [
                 "unit":"grammes"
             },
             {
-                "ingredient": "huile d'olive",
+                "ingredient": "Huile d'olive",
                 "quantity": 1,
                 "unit": "cuillères à soupe"
             }
@@ -723,7 +723,7 @@ const recipes = [
                 "unit":"grammes"
             },
             {
-                "ingredient": "Viande hachée 1% de matière grasse",
+                "ingredient": "Viande hachée",
                 "quantity": 400,
                 "unit":"grammes"
             },
@@ -733,14 +733,14 @@ const recipes = [
                 "unit": "cl"
             },
             {
-                "ingredient": "Crème Fraiche",
+                "ingredient": "Crème fraîche",
                 "quantity" : 1,
                 "unit": "cuillères à soupe"
             }
         ],
         "time": 30,
         "description":"Cuisiner la viande hachée dans une poelle à frire. Dans une autre faire cuire les oignons découpés en fins dés avec un peu de beurre. Ajouter du vin rouge. Mélanger les oigons avec la viande hachée. Faire cuire les pates le temps indiqué sur le paquet. Ajouter le coulis de tomates à la viande hachée. Une fois que les pates sont cuites, ajouter la crème fraiche à la viande hachée. Serivir.",
-        "appliance": "Casserolle.",
+        "appliance": "Casserole",
         "ustensils":["Cuillère en bois", "louche", "couteau"]
     },
     {
@@ -776,7 +776,7 @@ const recipes = [
         "time": 30,
         "description":"Faire fondre le chocolat et le beurre au bain marie. Dans un saladier battre les oeufs avec le sucre jusqu'à obtenir une texture de type mousse. Ajouter la farine ainsi que le mélange de beurre et chocolat fondu. Beurrez le moule à gateaux. Mettre au four préchauffé à 200° puis faites chauffer pendant 15 minutes. C'est prêt. Servir avec une boule de glace ou une crême dessert.",
         "appliance": "Four",
-        "ustensils":["moule à gateaux", "fouet", "casserolle"]
+        "ustensils":["moule à gateaux", "fouet", "Casserole"]
     },
     {
         "id": 23,
@@ -803,7 +803,7 @@ const recipes = [
                 "quantity": 3
             },
             {
-                "ingredient": "Crème Fraîche",
+                "ingredient": "Crème fraîche",
                 "quantity": 20,
                 "unit": "cl"
             },
@@ -906,7 +906,7 @@ const recipes = [
                 "quantity": 1
             },
             {
-                "ingredient": "Huile d'olives"
+                "ingredient": "Huile d'olive"
             },
             {
                 "ingredient": "Oignon",
@@ -954,7 +954,7 @@ const recipes = [
         ],
         "time": 15,
         "description":"Faire fondre l'oseille avec du beurre demi sel, ajouter un litre d'eau. Ajouter les vermicelles. Laisser cuire. une foit prêt, sortir du feu et après 5 minutes ajouter le jaune d'oeuf et la crême fraîche",
-        "appliance": "Casserolle",
+        "appliance": "Casserole",
         "ustensils":["couteau","cuillère en bois"]
     },
     {
@@ -982,7 +982,7 @@ const recipes = [
                 "unit":"grammes"
             },
             {
-                "ingredient": "Crême fraîche",
+                "ingredient": "Crème fraîche",
                 "quantity": 10,
                 "unit": "cl"
             }
@@ -990,7 +990,7 @@ const recipes = [
         "time": 80,
         "description":"Emincer les blanc de poireaux et les faire chauffer dans 25 grammes de beurre. AJouter les pommes de terres coupées en morceaux. Ajouter l'eau et laisser mijoter pour 45 minutes. Chauffer l'oseille avec le beurre restant puis incorporer le tout. Mixez. Ajoutez la crème. Bon appetit.",
         "appliance": "Mixer",
-        "ustensils":["casserolle","couteau"]
+        "ustensils":["Casserole","couteau"]
     },
     {
         "id": 29,
@@ -1021,7 +1021,7 @@ const recipes = [
         "time": 30,
         "description":"Prendre les pois chiches, les mettre dans le mixer avec de l'huile d'olive, ajouter le jus des 2 citrons et du paprika selon le gout.",
         "appliance": "Mixer",
-        "ustensils":["cuillère en bois", "presse citron"]
+        "ustensils":["Cuillère en bois", "presse citron"]
     },
     {
         "id": 30,
@@ -1046,7 +1046,7 @@ const recipes = [
         "time": 60,
         "description":"Mettre tous les ingrédients dans une cocotte. ajouter de l'eau pour recouvrir l'ensemble et laisser cuirre à petit feur pour 1 heure. Passer au mixer. Salez, poivrez. C'est prêt",
         "appliance": "Mixer",
-        "ustensils":["casserolle", "cuillère en bois"]
+        "ustensils":["Casserole", "cuillère en bois"]
     },
     {
         "id": 31,
@@ -1119,9 +1119,9 @@ const recipes = [
             }
         ],
         "time": 20,
-        "description":"Beurrer les tranches de pain, ajouter entre 2 tranches de pain de mie 1 tranche d'émental, une de blanc de dinde, et une autre d'emmental. Dans un récipient, mélanger le gruyère rappé avec le lait et la noix de muscade. Mettre sur les croque monsieux. Placer au four durnat 10 minutes.",
+        "description":"Beurrer les tranches de pain, ajouter entre 2 tranches de pain de mie 1 tranche d'émental, une de blanc de dinde, et une autre d'emmental. Dans un récipient, mélanger le gruyère rappé avec le lait et la noix de muscade. Mettre sur les croque monsieux. Placer au four durant 10 minutes.",
         "appliance": "Four",
-        "ustensils":["râpe à fromage", "cuillère à Soupe", "couteau"]
+        "ustensils":["râpe à fromage", "Cuillère à Soupe", "couteau"]
     },
     {
         "id": 33,
@@ -1182,7 +1182,7 @@ const recipes = [
             }
         ],
         "time": 25,
-        "description":"Eplucher les patates douces et coupez les en morceaux. Les faire cuire durant 20 minute dans une casserolle d'eau bouillante. Passer au mixer en ajoutant la crème et l'huile d'olive à son gout. Salez, poivrez. Pressez l'orange et ajouter le jus à l'ensemble. Servir.",
+        "description":"Eplucher les patates douces et coupez les en morceaux. Les faire cuire durant 20 minute dans une casserole d'eau bouillante. Passer au mixer en ajoutant la crème et l'huile d'olive à son gout. Salez, poivrez. Pressez l'orange et ajouter le jus à l'ensemble. Servir.",
         "appliance": "Mixer",
         "ustensils":["couteau", "économe", "cuillère en bois"]
     },
@@ -1279,7 +1279,7 @@ const recipes = [
                 "unit": "grammes"
             },
             {
-                "ingredient": "Huile d'olives",
+                "ingredient": "Huile d'olive",
                 "quantity": 25,
                 "unit": "cl"
             },
@@ -1288,7 +1288,7 @@ const recipes = [
                 "quantity": 1
             },
             {
-                "ingredient": "Coulis de tomates",
+                "ingredient": "Coulis de tomate",
                 "quantity": 20,
                 "unit": "cl"
             },
@@ -1392,7 +1392,7 @@ const recipes = [
         "time": 10,
         "description":"Dans un saladier mettre l'eau, le jus des cirtons et le sucre. Bien mélanger. Ajouter le bicarbonate. Servir. Ajouter des glaçon et une feuille de menthe pour la déco.",
         "appliance": "Saladier",
-        "ustensils":["cuillère en bois"]
+        "ustensils":["Cuillère en bois"]
     },
     {
         "id": 41,
@@ -1416,7 +1416,7 @@ const recipes = [
         ],
         "time": 20,
         "description":"Séparer les blancs d'oeufs. Faire fondre le chocolat au bain marie. Ajouter les jaunes et le sucre au chocolat hors du feu. Battre les blancs en neige. Ajouter les blancs au mélange de chocolat. Mélangez délicatement avec une spatule. Servir dans un plat ou dans des verres. Mettre au frais",
-        "appliance": "Casserolle",
+        "appliance": "Casserole",
         "ustensils":["fouet", "spatule", "verres"]
     }, 
     {
@@ -1507,15 +1507,15 @@ const recipes = [
                 "unit":"grammes"
             },
             {
-                "ingredient": "farine",
+                "ingredient": "Farine",
                 "quantity": 40,
                 "unit": "grammes"
             }
         ],
         "time": 15,
         "description":"Mélanger la farine et le beurre fondu en ajoutant le lait peu à peu. Ajouter du sucre après la cuisson. Bien mélanger. Ajouter le chocolat en morceaux et laisser chauffer 8 minutes en mélangeant avec une cuillère en bois. Mettre dans des verres",
-        "appliance": "Casserolle",
-        "ustensils":["cuillère en bois"]
+        "appliance": "Casserole",
+        "ustensils":["Cuillère en bois"]
     },
     {
         "id": 45,
@@ -1544,7 +1544,7 @@ const recipes = [
         ],
         "time": 30,
         "description":"Faire bouillir le lait ( on peut y ajouter de l'essence de vanille. Battre les oeufs et le sucre, ajouter la farine puis finalement ajouter le lait chaud. Remettre à feu doux pour faire épaissir en remuant pendant 5 à 10 minutes.",
-        "appliance": "Casserolle",
+        "appliance": "Casserole",
         "ustensils":["fouet","saladier"]
     },
     {
@@ -1608,7 +1608,7 @@ const recipes = [
                 "unit": "grammes"
             },
             {
-                "ingredient": "Crème Fraîche",
+                "ingredient": "Crème fraîche",
                 "quantity": 20,
                 "unit":"cl"
             }
@@ -1659,11 +1659,11 @@ const recipes = [
         "servings": 4,
         "ingredients": [
             {
-                "ingredient": "Bananes",
+                "ingredient": "Banane",
                 "quantity": 2
             },
             {
-                "ingredient": "Kiwis",
+                "ingredient": "Kiwi",
                 "quantity": 3
             },
             {
@@ -1721,4 +1721,4 @@ const recipes = [
         "appliance": "Four",
         "ustensils":["rouleau à patisserie","fouet"]
     }
-]
+];

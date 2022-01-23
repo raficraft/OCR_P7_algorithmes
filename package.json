@@ -1,0 +1,12 @@
+{
+  "name": "fisheye",
+  "version": "1.0.0",
+  "description": "Site de photographe basé sur l'accéssiblité",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "sass": "sass --watch ./css/sass/style.scss:./css/style.css"
+  },
+  "author": "raficraft",
+  "license": "ISC"
+}
