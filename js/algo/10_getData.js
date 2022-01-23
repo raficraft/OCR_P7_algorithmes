@@ -34,8 +34,6 @@ class GetData {
   searchInHashJson(options) {}
 
   specificData(options) {
-    console.log(options.search);
-
     let result = [];
     switch (options.depth) {
       case "root":

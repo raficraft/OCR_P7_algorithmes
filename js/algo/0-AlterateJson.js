@@ -29,7 +29,6 @@ class AlterateJson {
                 "keep"
               );
 
-              console.log(cleanEntries);
               result[recipe.id] += normalizeString(`${cleanEntries} `);
             } else {
               result[recipe.id] += normalizeString(
@@ -54,8 +53,6 @@ class AlterateJson {
           break;
       }
     });
-
-    console.log(result);
 
     return result;
   }
@@ -128,12 +125,9 @@ class AlterateJson {
 
   /*Enlève tout les accents des champs ciblé*/
   normalizeJson(JSON) {
-    console.log("search");
-
     const newJSON = [];
 
     JSON.forEach((recipe, key) => {
-      //  console.log(recipe);
       const thisKey = Object.keys(recipe);
       newJSON[key] = {};
 
@@ -180,5 +174,4 @@ class AlterateJson {
   }
 }
 
-console.log("alterate");
 const alterate = new AlterateJson();

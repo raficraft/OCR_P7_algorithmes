@@ -81,8 +81,6 @@ class Init {
 
   renderListing() {
     this.options.forEach((O) => {
-      console.log(O);
-
       let data = getData.allDataType(O);
       const listingContainer = document.querySelector(
         `#inputList--${O.context}`

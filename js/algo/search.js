@@ -33,7 +33,6 @@ class GlobalSearch {
   }
 
   request(keyWords) {
-    console.log(keyWords);
     /*Algorithme*/
     var t0 = performance.now();
     getData.jsonData = alterate.normalizeData;
@@ -41,9 +40,6 @@ class GlobalSearch {
     const idByGlobal = idByGlobalSearch(keyWordsArray);
     const uniqueID = getUniqueID(idByGlobal);
     var t1 = performance.now();
-    console.log(
-      "L'appel de doSomething a demandé " + (t1 - t0) + " millisecondes."
-    );
 
     if (uniqueID.length > 0) {
       const recipesByID = getData.getRecipeByID(uniqueID);
