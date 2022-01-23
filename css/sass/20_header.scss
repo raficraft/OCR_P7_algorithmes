@@ -1,209 +1,176 @@
-header{
-    display: flex;
-    width : 100%;
+header {
+  display: flex;
+  width: 100%;
 }
-.headerInside{
+.headerInside {
+  display: flex;
+  flex-direction: column;
+  width: 1240px;
+  margin: auto;
+
+  .logo {
+    align-self: center;
     display: flex;
-    flex-direction: column;
-    width : 1240px;        
-    margin: auto;
-
-
-    .logo{
-        align-self: center;
-        display: flex;
-        height : 93px;
-        justify-content: center;
-        margin-top : rem(42);
-        margin-bottom : rem(17);
-
-    }
+    height: 93px;
+    justify-content: center;
+    margin-top: rem(42);
+    margin-bottom: rem(17);
+  }
 }
 
-.search{
+.search {
+  width: 100%;
+  position: relative;
 
-    width : 100%;
-    position: relative;
-
-    input{
-        width : 100%;
-        height: 69px;
-        border-radius: rem(5);
-        border:none;
-        background-color: $first-gray;
-        text-indent: rem(22);
-        font-size: rem(18);
-        border: 2px solid transparent;
-        &::placeholder{
-            opacity: 0.5;
-        }
-        &:focus{
-           border: 2px solid $colorAlert;
-           outline: none;
-        }
-        
+  input {
+    width: 100%;
+    height: 69px;
+    border-radius: rem(5);
+    border: none;
+    background-color: $first-gray;
+    text-indent: rem(22);
+    font-size: rem(18);
+    border: 2px solid transparent;
+    &::placeholder {
+      opacity: 0.5;
     }
-    .fa-search{
-        position : absolute;
-        top : 0px;
-        right : rem(18);           
-        font-size: rem(32);
-        transform : translateY(50%)
+    &:focus {
+      border: 2px solid $colorAlert;
+      outline: none;
     }
-
+  }
+  .fa-search {
+    position: absolute;
+    top: 0px;
+    right: rem(18);
+    font-size: rem(32);
+    transform: translateY(50%);
+  }
 }
 
+.filterResult {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
 
+.filterTag {
+  color: white;
+  border-radius: 5px;
+  padding: rem(12) rem(55) rem(11) rem(20);
+  margin-right: rem(20);
+  margin-top: rem(25);
+  font-size: 14px;
+  position: relative;
+  cursor: pointer;
+  font-weight: 700;
 
-
-.filterResult{
-    display: flex;
-    flex-wrap: wrap;
-    width : 100%;
-    
-} 
-
-.filterTag{
-    color : white;
-    border-radius: 5px;
-    padding : rem(12) rem(55) rem(11) rem(20);
-    margin-right: rem(20);    
-    margin-top : rem(25);
-    font-size: 14px;
-    position : relative;
+  .fa-times-circle {
     cursor: pointer;
+    content: "";
+    position: absolute;
+    right: rem(10);
+    top: rem(9);
+    font-size: rem(20);
+    transition: 0.3s;
+
+    &:hover {
+      transform: scale(1.15);
+    }
+  }
+}
+
+.allInput {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: rem(57);
+  margin-top: rem(25);
+}
+
+.inputTrigger {
+  display: flex;
+  position: relative;
+  margin-right: rem(20);
+  flex-direction: column;
+  margin-bottom: rem(25);
+
+  .inputList {
+    width: 170px;
+    opacity: 0;
+    z-index: 20;
+    height: 0;
+    display: none;
+  }
+
+  input {
+    display: flex;
+    padding: rem(23) rem(60) rem(24) rem(15);
+    border-radius: rem(5);
+    height: 69px;
+    width: 170px;
+    border: none;
+    color: white;
+    font-size: rem(16);
     font-weight: 700;
+    width: 170px;
+    font-family: $font;
+    transition: border-radius 0s, width 0.3s;
 
-
-    .fa-times-circle{
-        cursor : pointer;
-        content : '';
-        position: absolute;
-        right : rem(10);
-        top : rem(9);
-        font-size: rem(20);
-        transition: 0.3s;
-
-        &:hover{
-            transform : scale(1.15);
-        }            
-
+    &::placeholder {
+      color: white;
     }
+    &:focus {
+      border: none;
+      outline: none;
+      width: 223px;
+      border-right: 1px solid white;
+      padding-right: 5px;
+      padding: rem(23) rem(60) rem(24) rem(15);
+      & ~ .inputSuggestion {
+        display: block;
+        width: calc(100% - 1px);
+      }
 
-}
-
-
-
-.allInput{
-    display: flex;
-    flex-wrap: wrap;
-    margin-bottom : rem(57);
-    margin-top : rem(25);
-}
-
-
-.inputTrigger{
-    display: flex;
-    position: relative;
-    margin-right: rem(20);
-    flex-direction: column;
-    margin-bottom: rem(25);
-
-    .inputList{
-        width :170px;
-        opacity : 0;
-        z-index : 20;
-        height : 0;
-        display : none;
-    }
-    
-    input{
+      & ~ .fa-chevron-down {
+        display: none;
+        justify-content: center;
+        align-items: center;
+      }
+      & ~ .fa-chevron-up {
         display: flex;
-        padding: rem(23) rem(60) rem(24) rem(15);
-        border-radius: rem(5);
-        height : 69px;
-        width : 170px;
-        border : none;
-        color : white;
-        font-size: rem(16);
-        font-weight: 700;
-        width: 170px;
-        font-family: $font;
-        transition: border-radius 0s, width 0.3s;
-        
-        &::placeholder{
-            color: white;
-
-        }
-        &:focus{
-            border : none;
-            outline: none;
-            width : 223px;
-            border-right: 1px solid white;
-            padding-right : 5px;
-            padding: rem(23) rem(60) rem(24) rem(15);
-            & ~ .inputSuggestion{
-                display: block;
-                width : calc(100% - 1px);
-            }
-
-            & ~ .fa-chevron-down{
-                display: none;
-                justify-content: center;
-                align-items: center; 
-            }
-            & ~ .fa-chevron-up{
-                display: flex;
-                justify-content: center;
-                align-items: center; 
-            }
-        }
-        
+        justify-content: center;
+        align-items: center;
+      }
     }
-     
+  }
 }
 
+.inputSuggestion {
+  width: 100%;
+  padding: rem(0) rem(20) rem(15) rem(15);
+  color: white;
+  font-family: $font;
+  font-weight: 400;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  display: none;
+  position: absolute;
+  bottom: -28px; //pour récupérer la hauteur total de la maquette de 97px. Décalage de 2px :(
 
+  &--alert {
+    color: $colorAlert;
+  }
+}
 
-    .inputSuggestion{
-        width : 100%;
-        padding: rem(0) rem(20) rem(15) rem(15);
-        color : white;
-        font-family: $font;
-        font-weight: 400;        
-        border-bottom-right-radius : 5px;
-        border-bottom-left-radius : 5px;
-        display : none;
-        position: absolute;
-        bottom :-28px;  //pour récupérer la hauteur total de la maquette de 97px. Décalage de 2px :(
-
-        &--alert{           
-            color :$colorAlert;
-        }
-    }
-
-  
-  
-
-    .fa-chevron-up,.fa-chevron-down{
-        position: absolute;
-        right: rem(9);
-        top : 0;   
-        height : 69px;   
-        width : 32px;
-        text-align: center;
-        color:rgb(255, 255, 255);
-        cursor: pointer;
-        line-height: 69px;
-    }
-    
-
-
-
-
-
-
-
-
-
-
+.fa-chevron-up,
+.fa-chevron-down {
+  position: absolute;
+  right: rem(9);
+  top: 0;
+  height: 69px;
+  width: 32px;
+  text-align: center;
+  color: rgb(255, 255, 255);
+  cursor: pointer;
+  line-height: 69px;
+}

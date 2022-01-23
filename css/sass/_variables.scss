@@ -1,31 +1,28 @@
-@use 'sass:math';
+@use "sass:math";
 
-$base-font-size : 16px!default;
+$base-font-size: 16px !default;
 
 //Supprime l'unité de mesure
 @function strip-unit($number) {
-    @if type-of($number) == 'number' and not unitless($number) {
-      @return $number / ($number * 0 + 1);
-    }
-  
-    @return $number;
+  @if type-of($number) == "number" and not unitless($number) {
+    @return $number / ($number * 0 + 1);
   }
 
-
-//Convertit le dimesionnement pixel -> rem
-@function rem($size, $base : $base-font-size){
-    @return 1rem * $size / strip-unit($base)
+  @return $number;
 }
 
+//Convertit le dimesionnement pixel -> rem
+@function rem($size, $base: $base-font-size) {
+  @return 1rem * $size / strip-unit($base);
+}
 
-$first-gray : #e7e7e7;
-$snd-gray : #C7BEBE;
+$first-gray: #e7e7e7;
+$snd-gray: #c7bebe;
 
-$thisblue : #3282F7;
-$thisGreen : #68D9A4;
-$thisRed : #ED6454;
-$colorAlert : #d04f4f;
+$thisblue: #3282f7;
+$thisGreen: #68d9a4;
+$thisRed: #ed6454;
+$colorAlert: #d04f4f;
 
-$font :  'Lato', sans-serif;
-$roboto : 'Roboto', sans-serif;
-
+$font: "Lato", sans-serif;
+$roboto: "Roboto", sans-serif;
