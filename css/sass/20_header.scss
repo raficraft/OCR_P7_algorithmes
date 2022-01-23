@@ -11,10 +11,15 @@ header {
   .logo {
     align-self: center;
     display: flex;
-    height: 93px;
     justify-content: center;
     margin-top: rem(42);
     margin-bottom: rem(17);
+    width: 268px;
+    height: 93px;
+    img {
+      width: 100%;
+      object-fit: cover;
+    }
   }
 }
 

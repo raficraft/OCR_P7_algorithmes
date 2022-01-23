@@ -246,10 +246,15 @@ header {
 .headerInside .logo {
   align-self: center;
   display: flex;
-  height: 93px;
   justify-content: center;
   margin-top: 2.625rem;
   margin-bottom: 1.0625rem;
+  width: 268px;
+  height: 93px;
+}
+.headerInside .logo img {
+  width: 100%;
+  object-fit: cover;
 }
 
 .search {

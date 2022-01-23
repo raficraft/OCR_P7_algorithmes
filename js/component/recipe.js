@@ -6,7 +6,7 @@ class createRecipe {
     thisData.forEach((data) => {
       this.elHTML += `<article class="sticker" data-id="${data.id}" style="animation-delay:${styleDelay}ms;">
                     <p class="flexImg">
-                        <img src="./img/recette_id_${data.id}.jpg" />
+                        <img src="./img/recette_id_${data.id}.jpg" alt="${data.name}"/>
                     </p>
                 <article>
                 <header>
