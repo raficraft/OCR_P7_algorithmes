@@ -183,6 +183,7 @@ input[type=search]::-webkit-search-results-decoration {
   display: none;
 }
 
+/*Social element*/
 .codacy_badge {
   position: fixed;
   bottom: 2rem;
